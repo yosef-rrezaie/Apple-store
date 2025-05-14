@@ -1,7 +1,8 @@
+import Categories from "@/components/modules/Categories"
+
 function Home() {
   return (
-    <div>
-    </div>
+      <Categories/>
   )
 }
 

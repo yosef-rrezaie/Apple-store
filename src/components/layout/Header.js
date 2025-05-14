@@ -7,7 +7,7 @@ import SearchBarMobile from "./SearchBarMobile";
 function Header() {
   return (
     <header className="h-37 shadow-[0_0_20px_-5px_#0000001A] lg:shadow-none lg:border-[#E6E6E6] lg:border-[1px]">
-      <div className="container mx-auto flex flex-col gap-6 px-6 py-6 sm:px-2 lg:py-8">
+      <div className="mx-auto flex flex-col gap-6 px-6 py-6 sm:px-2 lg:py-8">
         <div className="flex items-center justify-between ">
           <Hamburger />
           <Logo />
