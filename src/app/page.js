@@ -1,9 +1,13 @@
-import Categories from "@/components/modules/Categories"
+import Banner from "@/components/modules/Banner";
+import Categories from "@/components/modules/Categories";
 
 function Home() {
   return (
-      <Categories/>
-  )
+    <>
+      <Categories />
+      <Banner />
+    </>
+  );
 }
 
-export default Home
+export default Home;
