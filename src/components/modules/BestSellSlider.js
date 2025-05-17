@@ -40,7 +40,7 @@ export default function BestSellSlider() {
           </SwiperSlide>
         ))}
       </Swiper>
-      <div className="custom-pagination hidden sm:flex justify-center mt-15 gap-x-2" />
+      <div className="custom-pagination hidden sm:flex justify-center mt-15 gap-x-2"></div>
       <style jsx global>{`
         .custom-pagination .swiper-pagination-bullet-active {
           background-color: #ff510c !important;

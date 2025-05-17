@@ -3,7 +3,7 @@ import BestSellSlider from "./BestSellSlider";
 
 function BestSellProducts() {
   return (
-    <div className="px-6 mb-[80px]">
+    <div className="px-6">
       <div className="flex justify-between">
         <p className="font-semibold text-[18px] lg:text-[30px]">پرفروشترین محصولات</p>
         <div className="flex justify-between items-center gap-x-2">

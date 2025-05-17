@@ -1,3 +1,4 @@
+import AdBanner from "@/components/modules/AdBanner";
 import AdvertiseBanner from "@/components/modules/AdvertiseBanner";
 import Banner from "@/components/modules/Banner";
 import BestSellProducts from "@/components/modules/BestSellProducts";
@@ -12,6 +13,7 @@ function Home() {
       <CountDown />
       <AdvertiseBanner />
       <BestSellProducts/>
+      <AdBanner/>
     </>
   );
 }
