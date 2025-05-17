@@ -15,7 +15,7 @@ function AdvertiseBanner() {
         </div>
         <div className="flex flex-col px-3 gap-y-2 lg:px-13 lg:mt-[30px]">
           <p className="text-[20px] font-semibold lg:text-[37px]">
-            خرید آیفون ۱۴ پرومکس 512 گیگ
+            خرید آیفون ۱۴ پرومکس ۵۱۲ گیگ
           </p>
           <div className="lg:flex lg:flex-row-reverse lg:justify-end lg:gap-x-3 lg:items-center">
             <p className="text-[20px] lg:text-[34px] font-bold text-primary">
