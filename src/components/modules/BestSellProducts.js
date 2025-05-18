@@ -17,7 +17,7 @@ function BestSellProducts() {
           />
         </div>
       </div>
-      <BestSellSlider/>
+      <BestSellSlider title="sellProducts" desc="allProducts"/>
     </div>
   );
 }

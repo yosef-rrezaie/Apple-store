@@ -1,5 +1,6 @@
 import AdBanner from "@/components/modules/AdBanner";
 import AdvertiseBanner from "@/components/modules/AdvertiseBanner";
+import AppleWatch from "@/components/modules/AppleWatch";
 import Banner from "@/components/modules/Banner";
 import BestSellProducts from "@/components/modules/BestSellProducts";
 import Categories from "@/components/modules/Categories";
@@ -12,8 +13,9 @@ function Home() {
       <Banner />
       <CountDown />
       <AdvertiseBanner />
-      <BestSellProducts/>
-      <AdBanner/>
+      <BestSellProducts />
+      <AdBanner />
+      <AppleWatch />
     </>
   );
 }
