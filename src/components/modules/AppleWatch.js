@@ -9,7 +9,7 @@ function AppleWatch() {
         <div className="w-[150px] lg:w-[435px] shrink-0">
           <div className="bg-primary  h-[270px] lg:h-[345px]  rounded-[10px] flex items-center justify-center">
             <Image
-              src="/images/nike-watch.webp"
+              src="/images/nike-watch2.webp"
               width="100"
               height="140"
               alt="nike-watch"
