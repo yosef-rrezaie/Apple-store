@@ -6,6 +6,7 @@ import BestSellProducts from "@/components/modules/BestSellProducts";
 import Categories from "@/components/modules/Categories";
 import CountDown from "@/components/modules/CountDown";
 import Facilities from "@/components/modules/Facilities";
+import Footer from "@/components/modules/Footer";
 
 function Home() {
   return (
@@ -17,7 +18,8 @@ function Home() {
       <BestSellProducts />
       <AdBanner />
       <AppleWatch />
-      <Facilities/>
+      <Facilities />
+      <Footer />
     </>
   );
 }

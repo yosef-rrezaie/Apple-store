@@ -8,7 +8,7 @@ const details = [
 ];
 function Facilities() {
   return (
-    <div className="grid grid-cols-2 gap-4 mb-10 px-6 mt-24 md:px-0 md:grid-cols-4 md:gap-0">
+    <div className="grid grid-cols-2 gap-4 mb-5 px-6 mt-24 md:px-0 md:grid-cols-4 md:gap-0">
       {details.map((item) => (
         <FacilitiesCard key={item.id} icon={item.icon} name={item.name} />
       ))}
