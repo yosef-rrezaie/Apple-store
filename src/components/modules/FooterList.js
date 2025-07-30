@@ -16,7 +16,7 @@ function FooterList({ name, item }) {
     }
   }
   return (
-    <div className="">
+    <div className="mb-5">
       <div className="flex justify-between items-center mb-2">
         <p className="font-medium md:text-[18px]">{name}</p>
         <Image

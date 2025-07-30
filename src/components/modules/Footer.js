@@ -1,3 +1,4 @@
+import Image from "next/image";
 import FooterList from "./FooterList";
 
 const footerListData = [
@@ -30,10 +31,47 @@ function Footer() {
           </button>
         </div>
       </div>
-      <div className=" py-2.5 block md:flex w-full md:justify-evenly">
+      <div className=" py-2.5 block md:flex w-full md:justify-evenly md:row-start-1 md:row-end-3">
         {footerListData.map((items) => (
           <FooterList id={items.id} name={items.name} item={items.item} />
         ))}
+      </div>
+      <div className="bg-white rounded-2xl flex justify-between items-center p-4 mb-5">
+        <Image
+          src="/svg/instagram.svg"
+          width="1000"
+          height="1000"
+          className="w-4 h-4"
+          alt=""
+        />
+        <Image
+          src="/svg/whatsapp.svg"
+          width="1000"
+          height="1000"
+          className="w-4 h-4"
+          alt=""
+        />
+        <Image
+          src="/svg/twitter.svg"
+          width="1000"
+          height="1000"
+          className="w-4 h-4"
+          alt=""
+        />
+      </div>
+      <div className="mx-auto mb-5">
+        <Image
+          src="/images/enamad.webp"
+          width="1000"
+          height="1000"
+          className="w-15 h-21"
+        />
+      </div>
+      <div className="text-[10px] w-full  pt-2 flex justify-center ">
+        <p className="">
+          تمامی حقوق برای {" "}
+          <span className="text-[#FF510C]">وبسایت اپل استور </span> محفوظ است
+        </p>
       </div>
     </div>
   );
