@@ -1,7 +1,11 @@
 import AdminUi from "@/components/modules/AdminUi";
 
 function Admin() {
-  return <AdminUi/>
+  return (
+    <>
+      <AdminUi />
+    </>
+  );
 }
 
 export default Admin;

@@ -9,9 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "cloudinary": "^2.7.0",
+    "mongoose": "^8.17.0",
+    "multer": "^2.0.2",
     "next": "15.3.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hot-toast": "^2.5.2",
     "swiper": "^11.2.6"
   },
   "devDependencies": {
