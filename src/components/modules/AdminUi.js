@@ -1,5 +1,5 @@
 "use client";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
 function AdminUi() {
@@ -11,10 +11,11 @@ function AdminUi() {
   const [image, setImage] = useState(null);
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
+  const fileRef = useRef(null);
+
   async function handleSubmit(e) {
     e.preventDefault();
     setLoading((loading) => !loading);
-
     const formData = new FormData();
     formData.append("title", title);
     formData.append("description", description);
@@ -39,10 +40,11 @@ function AdminUi() {
       setCode("");
       setDiscount("");
       setImage(null);
+      fileRef.current.value = ""
     } else if (data.status === "failedData") {
       toast.error(data.message);
     } else {
-      toast.error("خطا در ارتباط با سرور")
+      toast.error("خطا در ارتباط با سرور");
     }
   }
   return (
@@ -128,6 +130,7 @@ function AdminUi() {
             id="photo"
             accept="image/*"
             onChange={(e) => setImage(e.target.files[0])}
+            ref={fileRef}
           />
         </div>
         <div className="w-full mt-2 relative md:row-start-5 md:w-[220px]  md:h-[50px]">

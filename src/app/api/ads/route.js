@@ -36,12 +36,17 @@ export async function POST(req) {
   const code = formData.get("code");
   let discount = formData.get("discount");
   const image = formData.get("image");
-  if (!title || !description || !price || !code || !image) {
+
+  if (!title || !description || !price || !code) {
     return NextResponse.json({
       status: "failedData",
       message:
         "لطفا همه فیلد ها را پر کنید ، در صورت وارد نکردن کد تخفیف مقدار صفر لحاظ می شود",
     });
+  }
+
+  if (image === "null" || image === "undefined") {
+    return NextResponse.json({ status: "failedData", message: "لطفا عکس را بارگذاری کنید" });
   }
   if (!discount) {
     discount = 0;
