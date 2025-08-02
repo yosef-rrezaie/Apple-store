@@ -1,15 +1,48 @@
 "use client";
+import { signIn } from "next-auth/react";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
-function SignUpIn({title}) {
+function SignUpIn({ title, type }) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const styleUi = "text-blue absolute left-[10px] top-[60%]";
-  function clickHandler(e) {
-    console.log(password);
+  const router = useRouter();
+  async function submitHandler(e) {
+    console.log(type);
+    e.preventDefault();
+    if (type === "signup") {
+      const data = await fetch("/api/auth/signup", {
+        method: "POST",
+        body: JSON.stringify({ email, password }),
+        headers: { "Content-Type": "application/json" },
+      });
+      const res = await data.json();
+      if (res.status === "failed") toast.error(res.message);
+      if (res.status === "success") {
+        toast.success(res.message);
+        setInterval(() => {
+          router.push("/signin");
+        }, 1500);
+      }
+    } else {
+      const res = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      });
+      console.log(res);
+      if (res.error) {
+        toast.error(res.error);
+        return;
+      } else {
+        router.push("/");
+      }
+    }
   }
   return (
     <div
@@ -17,7 +50,7 @@ function SignUpIn({title}) {
       lg:w-full lg:h-screen lg:flex lg:justify-center lg:items-center"
     >
       <div className="lg:w-[450px] lg:border lg:border-[#e3dfde] lg:px-4 lg:py-12 lg:rounded-[13px]">
-        <form className=" w-full px-6">
+        <form className=" w-full px-6" onSubmit={submitHandler}>
           <div className="flex justify-center items-center mb-7">
             <Image
               src="./svg/app-store.svg"
@@ -75,7 +108,7 @@ function SignUpIn({title}) {
           </div>
           <div>
             <button
-              onClick={clickHandler}
+              type="submit"
               className="w-full border-2 rounded-[13px] outline-none p-2
                bg-[#FF510C] text-[14px] border-none text-white font-semibold lg:text-[16px] lg:p-3"
             >
@@ -84,6 +117,7 @@ function SignUpIn({title}) {
           </div>
         </form>
       </div>
+      <Toaster />
     </div>
   );
 }

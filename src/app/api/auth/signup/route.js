@@ -7,13 +7,14 @@ export async function POST(req, res) {
   try {
     await connectDB();
   } catch (err) {
-    return NextResponse.json({ status: "failed" }, { status: 500 });
+    return NextResponse.json({ status: "failed" , message : "خطا در برقراری با سرور" }, { status: 500 });
   }
-  const { email, password } = req.json();
+  const { email, password } = await req.json();
+  console.log(email , password)
 
   if (!email || !password) {
     return NextResponse.json(
-      { status: "failed", message: "Invalid Data" },
+      { status: "failed", message: "لطفا همه فیلدها را پر کنید" },
       { status: 422 }
     );
   }
@@ -22,7 +23,7 @@ export async function POST(req, res) {
   if (existingUser) {
     return NextResponse.json({
       status: "failed",
-      message: "User exist already",
+      message: "این ایمیل در سیستم ثبت شده است",
     } , {status : 200});
   }
 
@@ -31,5 +32,5 @@ export async function POST(req, res) {
       email,
       password: hasshedPassword,
     });
-   return NextResponse.json({ status: "success", message: "User created" } , {status : 201});
+   return NextResponse.json({ status: "success", message: "ثبت نام با موفقیت انجام شد" } , {status : 201});
 }

@@ -1,11 +1,11 @@
-import SignUpIn from "@/components/modules/SignUpIn"
+import SignUpIn from "@/components/modules/SignUpIn";
 
 function SignIn() {
   return (
     <div>
-      <SignUpIn title="ورود"/>
+      <SignUpIn title="ورود" type="signin" />
     </div>
-  )
+  );
 }
 
-export default SignIn
+export default SignIn;
