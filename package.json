@@ -9,10 +9,12 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "bcryptjs": "^3.0.2",
     "cloudinary": "^2.7.0",
     "mongoose": "^8.17.0",
     "multer": "^2.0.2",
     "next": "15.3.2",
+    "next-auth": "^4.24.11",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
     "react-hot-toast": "^2.5.2",
