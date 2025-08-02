@@ -1,6 +1,5 @@
 import SignUpIn from "@/components/modules/SignUpIn";
-
-function SignIn() {
+async function SignIn() {
   return (
     <div>
       <SignUpIn title="ورود" type="signin" />

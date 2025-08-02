@@ -13,7 +13,6 @@ function SignUpIn({ title, type }) {
   const styleUi = "text-blue absolute left-[10px] top-[60%]";
   const router = useRouter();
   async function submitHandler(e) {
-    console.log(type);
     e.preventDefault();
     if (type === "signup") {
       const data = await fetch("/api/auth/signup", {
@@ -35,7 +34,6 @@ function SignUpIn({ title, type }) {
         password,
         redirect: false,
       });
-      console.log(res);
       if (res.error) {
         toast.error(res.error);
         return;
