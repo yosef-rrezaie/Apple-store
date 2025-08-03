@@ -94,7 +94,7 @@ function AdminUi({ email }) {
             onChange={(e) => setTitle(e.target.value)}
           />
         </div>
-        <div className="md:row-start-2 md:col-span-2">
+        <div className="md:row-start-2">
           <label className="text-[#FF510C]" htmlFor="description">
             توضیحات کالا :
           </label>
@@ -106,8 +106,8 @@ function AdminUi({ email }) {
             onChange={(e) => setDesc(e.target.value)}
           />
         </div>
-        <div>
-          <p className="text-[#FF510C]">ویژگی های محصول : </p>
+        <div className="md:row-start-3 md:col-span-2">
+          <p className="text-[#FF510C] ">ویژگی های محصول : </p>
           {features.map((item) => (
             <div
               key={item.id}
@@ -153,7 +153,7 @@ function AdminUi({ email }) {
             onChange={(e) => setPrice(e.target.value)}
           />
         </div>
-        <div>
+        <div className="">
           <label className="text-[#FF510C]" htmlFor="code">
             کد کالا :
           </label>
@@ -194,10 +194,10 @@ function AdminUi({ email }) {
             ref={fileRef}
           />
         </div>
-        <div className="w-full mt-2 relative md:row-start-5 md:w-[220px]  md:h-[50px]">
+        <div className="w-full mt-2 relative  md:w-[220px]  md:h-[50px]">
           <button
             type="submit"
-            className=" w-full border-2 rounded-[13px] outline-none p-2 bg-[#FF510C] text-[14px] border-none text-white md:row-start-5 
+            className=" w-full border-2 rounded-[13px] outline-none p-2 bg-[#FF510C] text-[14px] border-none text-white 
            disabled:bg-[#eab199]"
             disabled={!!loading && true}
           >
