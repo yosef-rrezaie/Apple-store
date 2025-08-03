@@ -1,10 +1,15 @@
 "use client";
+import { v4 as uuidv4 } from "uuid";
+import Image from "next/image";
 import { useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
+import { MdDelete } from "react-icons/md";
 
 function AdminUi({ email }) {
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
+  const [features, setFeatures] = useState([{ id: uuidv4(), title: "" }]);
+  console.log(features);
   const [price, setPrice] = useState("");
   const [code, setCode] = useState("");
   const [discount, setDiscount] = useState("");
@@ -12,6 +17,27 @@ function AdminUi({ email }) {
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const fileRef = useRef(null);
+
+  function featureAddHandler(e) {
+    setFeatures([...features, { id: uuidv4(), title: "" }]);
+  }
+
+  function featureDeleteHandler(id) {
+    if (features.length < 2) {
+      toast.error("محصول شما حداقل باید یک ویژگی داشته باشد");
+      return;
+    }
+    const featuresFiltered = features.filter((item) => item.id !== id);
+    setFeatures(featuresFiltered);
+    console.log(features);
+  }
+
+  function changeHandler(value, id) {
+    const updated = features.map((item) =>
+      item.id === id ? { ...item, title: value } : item
+    );
+    setFeatures(updated);
+  }
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -79,6 +105,40 @@ function AdminUi({ email }) {
             value={description}
             onChange={(e) => setDesc(e.target.value)}
           />
+        </div>
+        <div>
+          <p className="text-[#FF510C]">ویژگی های محصول : </p>
+          {features.map((item) => (
+            <div
+              key={item.id}
+              className="flex justify-center items-center gap-x-1.5"
+            >
+              <input
+                type="text"
+                className="placeholder:text-[14px] w-full border-2 rounded-[8px] outline-none p-2 border-[#FF510C21] text-[14px] mt-2 mb-2"
+                value={item.title}
+                onChange={(e) => changeHandler(e.target.value, item.id)}
+              />
+              {features.length > 1 && (
+                <MdDelete
+                  className=" text-[#FF510C] w-6 h-6"
+                  onClick={() => featureDeleteHandler(item.id)}
+                />
+              )}
+            </div>
+          ))}
+          <div className="w-full flex justify-end mt-2">
+            <button className="w-10 h-10">
+              <Image
+                src="/svg/plus.svg"
+                width="1000"
+                height="1000"
+                className="w-10 h-10"
+                alt="plus"
+                onClick={featureAddHandler}
+              />
+            </button>
+          </div>
         </div>
         <div>
           <label className="text-[#FF510C]" htmlFor="price">
