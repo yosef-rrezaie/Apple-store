@@ -36,6 +36,7 @@ export async function POST(req) {
   const code = formData.get("code");
   let discount = formData.get("discount");
   const image = formData.get("image");
+  const email = formData.get("email");
 
   if (!title || !description || !price || !code) {
     return NextResponse.json({
@@ -46,7 +47,10 @@ export async function POST(req) {
   }
 
   if (image === "null" || image === "undefined") {
-    return NextResponse.json({ status: "failedData", message: "لطفا عکس را بارگذاری کنید" });
+    return NextResponse.json({
+      status: "failedData",
+      message: "لطفا عکس را بارگذاری کنید",
+    });
   }
   if (!discount) {
     discount = 0;
@@ -70,6 +74,7 @@ export async function POST(req) {
       code,
       discount,
       imageUrl: result.secure_url,
+      PublisherEmail: email,
     });
 
     return NextResponse.json({ status: "success", ad: newAd });

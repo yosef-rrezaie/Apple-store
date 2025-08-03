@@ -10,7 +10,6 @@ async function Admin() {
   if (!session) {
     redirect("/");
   }
-
   const {
     user: { email },
   } = session;
@@ -18,18 +17,19 @@ async function Admin() {
     await connectDB();
   } catch (err) {
     console.log("erorr");
-    return
+    return;
   }
   const user = await User.findOne({ email });
-    console.log(user);
-    if (user.role !== "Admin") {
-      redirect("/");
-    }
-  return (
-    <>
-      <AdminUi />
-    </>
-  );
+  console.log(user._id);
+  if (user.role !== "Admin") {
+    redirect("/");
+  } else {
+    return (
+      <>
+        <AdminUi email={email}/>
+      </>
+    );
+  }
 }
 
 export default Admin;

@@ -2,7 +2,7 @@
 import { useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
-function AdminUi() {
+function AdminUi({ email }) {
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
   const [price, setPrice] = useState("");
@@ -23,6 +23,7 @@ function AdminUi() {
     formData.append("code", code);
     formData.append("discount", discount);
     formData.append("image", image);
+    formData.append("email", email);
 
     const res = await fetch("/api/ads", {
       method: "POST",
@@ -40,7 +41,7 @@ function AdminUi() {
       setCode("");
       setDiscount("");
       setImage(null);
-      fileRef.current.value = ""
+      fileRef.current.value = "";
     } else if (data.status === "failedData") {
       toast.error(data.message);
     } else {
