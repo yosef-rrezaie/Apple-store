@@ -9,7 +9,7 @@ function AdminUi({ email }) {
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
   const [features, setFeatures] = useState([{ id: uuidv4(), title: "" }]);
-  console.log(features);
+console.log(JSON.stringify(features, null, 2));
   const [price, setPrice] = useState("");
   const [code, setCode] = useState("");
   const [discount, setDiscount] = useState("");
@@ -50,6 +50,7 @@ function AdminUi({ email }) {
     formData.append("discount", discount);
     formData.append("image", image);
     formData.append("email", email);
+    formData.append("features", JSON.stringify(features));
 
     const res = await fetch("/api/ads", {
       method: "POST",
@@ -67,6 +68,7 @@ function AdminUi({ email }) {
       setCode("");
       setDiscount("");
       setImage(null);
+      setFeatures([{ id: uuidv4(), title: "" }]);
       fileRef.current.value = "";
     } else if (data.status === "failedData") {
       toast.error(data.message);

@@ -1,4 +1,4 @@
-import mongoose, { model , models } from "mongoose";
+import mongoose, { model, models } from "mongoose";
 
 const AdSchema = new mongoose.Schema({
   title: { type: String, required: true },
@@ -6,10 +6,11 @@ const AdSchema = new mongoose.Schema({
   price: Number,
   code: Number,
   discount: Number,
-  PublisherEmail : String ,
   imageUrl: { type: String, required: true },
+  features: [Object],
+  PublisherEmail: String,
   createdAt: { type: Date, default: Date.now },
 });
 
-const Ad = models.Ad || model("Ad" , AdSchema)
-export default Ad
+const Ad = models.Ad || model("Ad", AdSchema);
+export default Ad;

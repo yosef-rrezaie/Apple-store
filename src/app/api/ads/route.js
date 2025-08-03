@@ -37,6 +37,7 @@ export async function POST(req) {
   let discount = formData.get("discount");
   const image = formData.get("image");
   const email = formData.get("email");
+  const features = formData.get("features");
 
   if (!title || !description || !price || !code) {
     return NextResponse.json({
@@ -74,6 +75,7 @@ export async function POST(req) {
       code,
       discount,
       imageUrl: result.secure_url,
+      features ,
       PublisherEmail: email,
     });
 
