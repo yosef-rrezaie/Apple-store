@@ -10,7 +10,6 @@ function AdminUi({ email }) {
   const [description, setDesc] = useState("");
   const [features, setFeatures] = useState([{ id: uuidv4(), title: "" }]);
   const [category, setCategory] = useState("appleWatch");
-  console.log(JSON.stringify(features, null, 2));
   const [price, setPrice] = useState("");
   const [code, setCode] = useState("");
   const [discount, setDiscount] = useState("");

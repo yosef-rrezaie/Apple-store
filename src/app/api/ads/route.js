@@ -57,12 +57,22 @@ export async function POST(req) {
     discount = 0;
   }
 
-  const buffer = await image.arrayBuffer();
-  const base64 = Buffer.from(buffer).toString("base64");
-  const dataUri = `data:${image.type};base64,${base64}`;
-
   try {
     await connectDB();
+
+    const allProducts = await Ad.find();
+    const checkCode = allProducts.some((item) => item.code === Number(code));
+    console.log(checkCode)
+    if (checkCode) {
+      return NextResponse.json({
+        status: "failedData",
+        message: "این کد کالا قبلا ثبت شده است"
+      });
+    }
+
+    const buffer = await image.arrayBuffer();
+    const base64 = Buffer.from(buffer).toString("base64");
+    const dataUri = `data:${image.type};base64,${base64}`;
 
     const result = await cloudinary.uploader.upload(dataUri, {
       folder: "ads",
@@ -80,7 +90,7 @@ export async function POST(req) {
       category,
     });
 
-    return NextResponse.json({ status: "success", ad: newAd });
+    return NextResponse.json({ status: "success", ad: newAd});
   } catch (err) {
     return NextResponse.json(
       { status: "failed", error: err.message },
