@@ -1,10 +1,24 @@
+"use client"
 import Image from "next/image";
 import { GrAd } from "react-icons/gr";
 import { LuShoppingCart } from "react-icons/lu";
 import { FaStore } from "react-icons/fa";
 import { sp } from "@/utils/replaceNumber";
+import { useEffect } from "react";
+import { useParams } from "next/navigation";
 
-async function ProductPage(req) {
+function ProductPage() {
+  const { productsId } = useParams();
+  console.log(productsId);
+  
+  useEffect(() => {
+    async function getProduct() {
+      const res = await fetch(`/api/products/${productsId}`);
+      const data = await res.json();
+      console.log(data);
+    }
+    getProduct();
+  }, []);
   return (
     <div className="border bg-white shadow-md border-[#eb8d68] mx-6 mt-10 rounded-[13px] px-8 py-6 ">
       <div className="flex justify-center mb-6 ">
@@ -74,8 +88,10 @@ async function ProductPage(req) {
             </p>
           </div>
         </div>
-        <button className="bg-[#FF510C] hover:bg-orange-600 text-white px-5 py-2 rounded-xl flex items-center justify-center 
-        transition-all w-full md:w-max">
+        <button
+          className="bg-[#FF510C] hover:bg-orange-600 text-white px-5 py-2 rounded-xl flex items-center justify-center 
+        transition-all w-full md:w-max"
+        >
           <LuShoppingCart className="text-white text-lg" />
           <span className="mr-2 font-medium">افزودن به سبد خرید</span>
         </button>
