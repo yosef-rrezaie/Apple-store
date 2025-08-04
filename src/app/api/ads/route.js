@@ -43,7 +43,7 @@ export async function POST(req) {
     return NextResponse.json({
       status: "failedData",
       message:
-        "لطفا همه فیلد ها را پر کنید ، در صورت وارد نکردن کد تخفیف مقدار صفر لحاظ می شود",
+        "لطفاً همه فیلدها را به‌درستی پر کنید",
     });
   }
 

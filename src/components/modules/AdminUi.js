@@ -9,12 +9,11 @@ function AdminUi({ email }) {
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
   const [features, setFeatures] = useState([{ id: uuidv4(), title: "" }]);
-console.log(JSON.stringify(features, null, 2));
+  console.log(JSON.stringify(features, null, 2));
   const [price, setPrice] = useState("");
   const [code, setCode] = useState("");
   const [discount, setDiscount] = useState("");
   const [image, setImage] = useState(null);
-  const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const fileRef = useRef(null);
 
@@ -23,10 +22,6 @@ console.log(JSON.stringify(features, null, 2));
   }
 
   function featureDeleteHandler(id) {
-    if (features.length < 2) {
-      toast.error("محصول شما حداقل باید یک ویژگی داشته باشد");
-      return;
-    }
     const featuresFiltered = features.filter((item) => item.id !== id);
     setFeatures(featuresFiltered);
     console.log(features);
@@ -41,6 +36,19 @@ console.log(JSON.stringify(features, null, 2));
 
   async function handleSubmit(e) {
     e.preventDefault();
+    const invalidFeature = features.some((item) => item.title.trim() === "");
+    if (
+      !title ||
+      !description ||
+      !price ||
+      !code ||
+      !image ||
+      invalidFeature
+    ) {
+      toast.error("لطفاً همه فیلدها را به‌درستی پر کنید");
+      return;
+    }
+
     setLoading((loading) => !loading);
     const formData = new FormData();
     formData.append("title", title);
@@ -130,14 +138,17 @@ console.log(JSON.stringify(features, null, 2));
             </div>
           ))}
           <div className="w-full flex justify-end mt-2">
-            <button className="w-10 h-10">
+            <button
+              type="button"
+              className="w-10 h-10"
+              onClick={featureAddHandler}
+            >
               <Image
                 src="/svg/plus.svg"
                 width="1000"
                 height="1000"
                 className="w-10 h-10"
                 alt="plus"
-                onClick={featureAddHandler}
               />
             </button>
           </div>
