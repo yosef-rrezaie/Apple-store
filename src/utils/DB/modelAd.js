@@ -9,6 +9,7 @@ const AdSchema = new mongoose.Schema({
   imageUrl: { type: String, required: true },
   features: [Object],
   PublisherEmail: String,
+  category : String ,
   createdAt: { type: Date, default: Date.now },
 });
 

@@ -9,6 +9,7 @@ function AdminUi({ email }) {
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
   const [features, setFeatures] = useState([{ id: uuidv4(), title: "" }]);
+  const [category, setCategory] = useState("appleWatch");
   console.log(JSON.stringify(features, null, 2));
   const [price, setPrice] = useState("");
   const [code, setCode] = useState("");
@@ -37,14 +38,7 @@ function AdminUi({ email }) {
   async function handleSubmit(e) {
     e.preventDefault();
     const invalidFeature = features.some((item) => item.title.trim() === "");
-    if (
-      !title ||
-      !description ||
-      !price ||
-      !code ||
-      !image ||
-      invalidFeature
-    ) {
+    if (!title || !description || !price || !code || !image || invalidFeature) {
       toast.error("لطفاً همه فیلدها را به‌درستی پر کنید");
       return;
     }
@@ -59,6 +53,7 @@ function AdminUi({ email }) {
     formData.append("image", image);
     formData.append("email", email);
     formData.append("features", JSON.stringify(features));
+    formData.append("category", category);
 
     const res = await fetch("/api/ads", {
       method: "POST",
@@ -77,6 +72,7 @@ function AdminUi({ email }) {
       setDiscount("");
       setImage(null);
       setFeatures([{ id: uuidv4(), title: "" }]);
+      setCategory("appleWatch")
       fileRef.current.value = "";
     } else if (data.status === "failedData") {
       toast.error(data.message);
@@ -103,6 +99,22 @@ function AdminUi({ email }) {
             value={title}
             onChange={(e) => setTitle(e.target.value)}
           />
+        </div>
+        <div className="w-full">
+          <p className="text-[#FF510C]">نوع محصول :</p>
+          <select
+            className="bg-white w-full border-2 rounded-[8px] border-[#FF510C21] p-2 mt-2 outline-none text-[14px] 
+          appearance-none"
+            value={category}
+            onChange={(e)=>setCategory(e.target.value)}
+          >
+            <option value="appleWatch">اپل واچ</option>
+            <option value="airpod">ایرپاد</option>
+            <option value="ipad">آیپد</option>
+            <option value="iphone">آیفون</option>
+            <option value="charger">شارژر</option>
+            <option value="homePad">هوم پاد</option>
+          </select>
         </div>
         <div className="md:row-start-2">
           <label className="text-[#FF510C]" htmlFor="description">
@@ -137,6 +149,7 @@ function AdminUi({ email }) {
               )}
             </div>
           ))}
+
           <div className="w-full flex justify-end mt-2">
             <button
               type="button"

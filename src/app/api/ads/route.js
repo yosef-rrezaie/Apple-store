@@ -38,12 +38,12 @@ export async function POST(req) {
   const image = formData.get("image");
   const email = formData.get("email");
   const features = formData.get("features");
+  const category = formData.get("category");
 
   if (!title || !description || !price || !code) {
     return NextResponse.json({
       status: "failedData",
-      message:
-        "لطفاً همه فیلدها را به‌درستی پر کنید",
+      message: "لطفاً همه فیلدها را به‌درستی پر کنید",
     });
   }
 
@@ -75,8 +75,9 @@ export async function POST(req) {
       code,
       discount,
       imageUrl: result.secure_url,
-      features ,
+      features,
       PublisherEmail: email,
+      category,
     });
 
     return NextResponse.json({ status: "success", ad: newAd });
