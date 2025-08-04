@@ -5,7 +5,7 @@ function User() {
     <div className="flex gap-3">
       <div className="relative">
         <Image
-          src="./svg/shopping-cart.svg"
+          src="/svg/shopping-cart.svg"
           width={23}
           height={23}
           alt="shop"
@@ -15,7 +15,7 @@ function User() {
         </span>
       </div>
       <div className="relative">
-        <Image src="./svg/heart.svg" width={23} height={23} alt="favorite" />
+        <Image src="/svg/heart.svg" width={23} height={23} alt="favorite" />
         <span className="block w-3 h-3 rounded-full text-center text-[10px] bg-primary text-white absolute -top-1 -bottom-1">
           0
         </span>

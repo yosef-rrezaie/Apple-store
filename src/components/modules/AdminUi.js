@@ -219,7 +219,7 @@ function AdminUi({ email }) {
             ref={fileRef}
           />
         </div>
-        <div className="w-full mt-2 relative  md:w-[220px]  md:h-[50px]">
+        <div className="w-full mt-2 relative  md:w-[220px]  md:h-[50px] md:row-start-6">
           <button
             type="submit"
             className=" w-full border-2 rounded-[13px] outline-none p-2 bg-[#FF510C] text-[14px] border-none text-white 
