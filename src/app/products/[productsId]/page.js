@@ -42,7 +42,7 @@ function ProductPage() {
           {information.data.title}
         </h2>
         <p className="text-sm text-gray-500 mt-1">
-          دسته‌بندی: {information.data.category}
+          دسته بندی : {information.data.category}
         </p>
       </div>
 

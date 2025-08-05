@@ -9,7 +9,7 @@ function AdminUi({ email }) {
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
   const [features, setFeatures] = useState([{ id: uuidv4(), title: "" }]);
-  const [category, setCategory] = useState("appleWatch");
+  const [category, setCategory] = useState("اپل واچ");
   const [price, setPrice] = useState("");
   const [code, setCode] = useState("");
   const [discount, setDiscount] = useState("");
@@ -71,7 +71,7 @@ function AdminUi({ email }) {
       setDiscount("");
       setImage(null);
       setFeatures([{ id: uuidv4(), title: "" }]);
-      setCategory("appleWatch")
+      setCategory("اپل واچ")
       fileRef.current.value = "";
     } else if (data.status === "failedData") {
       toast.error(data.message);
@@ -107,12 +107,12 @@ function AdminUi({ email }) {
             value={category}
             onChange={(e)=>setCategory(e.target.value)}
           >
-            <option value="appleWatch">اپل واچ</option>
-            <option value="airpod">ایرپاد</option>
-            <option value="ipad">آیپد</option>
-            <option value="iphone">آیفون</option>
-            <option value="charger">شارژر</option>
-            <option value="homePad">هوم پاد</option>
+            <option value="اپل واچ">اپل واچ</option>
+            <option value="ایرپاد">ایرپاد</option>
+            <option value="آیپد">آیپد</option>
+            <option value="آیفون">آیفون</option>
+            <option value="شارژر">شارژر</option>
+            <option value="هوم پاد">هوم پاد</option>
           </select>
         </div>
         <div className="md:row-start-2">
