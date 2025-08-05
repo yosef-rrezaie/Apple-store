@@ -1,73 +1,67 @@
-"use client"
+"use client";
 import Image from "next/image";
 import { GrAd } from "react-icons/gr";
 import { LuShoppingCart } from "react-icons/lu";
 import { FaStore } from "react-icons/fa";
 import { sp } from "@/utils/replaceNumber";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 
 function ProductPage() {
   const { productsId } = useParams();
+  const [information, setInformation] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
   console.log(productsId);
-  
+
   useEffect(() => {
     async function getProduct() {
       const res = await fetch(`/api/products/${productsId}`);
       const data = await res.json();
       console.log(data);
+      setInformation(data);
+      setIsLoading(false);
     }
     getProduct();
   }, []);
+
+  if (isLoading) return <p>is loading ...</p>;
   return (
     <div className="border bg-white shadow-md border-[#eb8d68] mx-6 mt-10 rounded-[13px] px-8 py-6 ">
       <div className="flex justify-center mb-6 ">
         <Image
-          src="/images/apple-watch.webp"
+          src={information.data.imageUrl}
           width="1000"
           height="1000"
           className="rounded-xl shadow-md w-50 md:w-60"
-          alt=" appleWatch"
+          alt={information.data.title}
         />
       </div>
 
       <div className="text-center mb-4">
         <h2 className="text-2xl font-bold text-gray-800">
-          سامسونگ گلکسی S25 اولترا
+          {information.data.title}
         </h2>
-        <p className="text-sm text-gray-500 mt-1">دسته‌بندی: گوشی هوشمند</p>
+        <p className="text-sm text-gray-500 mt-1">
+          دسته‌بندی: {information.data.category}
+        </p>
       </div>
 
       <div className="bg-gray-50 border border-dashed border-orange-200 p-4 rounded-xl mb-5">
         <p className="text-[#FF510C] font-semibold mb-3">ویژگی‌ها:</p>
         <div className="space-y-3">
-          <div className="flex items-center">
-            <GrAd className="text-orange-500 text-lg" />
-            <p className="mr-2 font-medium">
-              باتری 5000 میلی آمپر با شارژ سریع
-            </p>
-          </div>
-          <div className="flex items-center">
-            <GrAd className="text-orange-500 text-lg" />
-            <p className="mr-2 font-medium">دوربین اصلی 108 مگاپیکسل</p>
-          </div>
-          <div className="flex items-center">
-            <GrAd className="text-orange-500 text-lg" />
-            <p className="mr-2 font-medium">نمایشگر AMOLED با نرخ 120Hz</p>
-          </div>
-          <div className="flex items-center">
-            <GrAd className="text-orange-500 text-lg" />
-            <p className="mr-2 font-medium">ضد آب + بدنه گوریلا گلس</p>
-          </div>
+          {JSON.parse(information.data.features).map((item) => (
+            <div className="flex items-center" key={item.id}>
+              <GrAd className="text-orange-500 text-lg" />
+              <p className="mr-2 font-medium">{item.title}</p>
+            </div>
+          ))}
         </div>
       </div>
 
       <div className="mb-6">
         <p className="text-[#FF510C] font-semibold mb-2">توضیحات:</p>
         <p className="text-justify text-gray-700 leading-relaxed font-medium">
-          گلکسی S25 اولترا یکی از پرچم‌داران سامسونگ در سال جدید است که با طراحی
-          مدرن، عملکرد فوق‌العاده، و ویژگی‌های پیشرفته به بازار عرضه شده. این
-          گوشی مناسب گیمرها، عکاسان موبایلی و کاربران حرفه‌ای است.
+          {information.data.description}
         </p>
       </div>
 
@@ -78,13 +72,25 @@ function ProductPage() {
 
       <div className="flex flex-col md:flex-row-reverse md:items-center items-end justify-between mb-6 border-t border-gray-200 pt-4">
         <div className=" flex flex-col items-end mb-8 md:mb-13">
-          <p className="text-red-600 text-xl font-bold">{sp(42900000)} تومان</p>
+          {information.data.discount === 0 ? (
+            <p className="text-red-600 text-xl font-bold">
+              {sp(information.data.price)} تومان
+            </p>
+          ) : <p className="text-red-600 text-xl font-bold">
+              {sp(information.data.price - (information.data.discount / 100 *information.data.price ))} تومان
+            </p>}
           <div className="flex items-center gap-2 mt-1">
-            <span className="text-sm text-white bg-red-500 px-2 py-0.5 rounded-full">
-              ٪{sp(15)} تخفیف
-            </span>
-            <p className="line-through text-gray-400 text-sm">
-              {sp(50500000)} تومان
+            {information.data.discount === 0 ? null : (
+              <span className="text-sm text-white bg-red-500 px-2 py-0.5 rounded-full">
+                ٪{sp(information.data.discount)} تخفیف
+              </span>
+            )}
+            <p
+              className={`line-through text-gray-400 text-sm ${
+                information.data.discount === 0 && "hidden"
+              }`}
+            >
+              {sp(information.data.price)} تومان
             </p>
           </div>
         </div>
