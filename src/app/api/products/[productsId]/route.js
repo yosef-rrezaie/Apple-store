@@ -7,7 +7,6 @@ export async function GET(req, { params }) {
   try {
     await connectDB();
     const ads = await Ad.find({});
-    console.log(ads)
     const filteredAd = ads.filter((item) => item.code === Number(productsId));
     return NextResponse.json({ status: "success", data: filteredAd[0] });
   } catch (err) {
