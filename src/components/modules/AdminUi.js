@@ -4,8 +4,9 @@ import Image from "next/image";
 import { useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
+import { numberToWords } from "@persian-tools/persian-tools";
 
-function AdminUi({ email , name }) {
+function AdminUi({ email, name }) {
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
   const [features, setFeatures] = useState([{ id: uuidv4(), title: "" }]);
@@ -72,7 +73,7 @@ function AdminUi({ email , name }) {
       setDiscount("");
       setImage(null);
       setFeatures([{ id: uuidv4(), title: "" }]);
-      setCategory("اپل واچ")
+      setCategory("اپل واچ");
       fileRef.current.value = "";
     } else if (data.status === "failedData") {
       toast.error(data.message);
@@ -106,7 +107,7 @@ function AdminUi({ email , name }) {
             className="bg-white w-full border-2 rounded-[8px] border-[#FF510C21] p-2 mt-2 outline-none text-[14px] 
           appearance-none"
             value={category}
-            onChange={(e)=>setCategory(e.target.value)}
+            onChange={(e) => setCategory(e.target.value)}
           >
             <option value="اپل واچ">اپل واچ</option>
             <option value="ایرپاد">ایرپاد</option>
@@ -178,6 +179,7 @@ function AdminUi({ email , name }) {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
+          {price && <p className="text-[12px] mt-[5px]">{numberToWords(price)} <span className="text-red-600">تومان</span></p>}
         </div>
         <div className="">
           <label className="text-[#FF510C]" htmlFor="code">

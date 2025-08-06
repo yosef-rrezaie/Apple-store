@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@persian-tools/persian-tools": "^3.6.0",
     "bcryptjs": "^3.0.2",
     "cloudinary": "^2.7.0",
     "mongoose": "^8.17.0",
