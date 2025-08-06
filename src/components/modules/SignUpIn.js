@@ -11,22 +11,26 @@ function SignUpIn({ title, type }) {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
+  const [loading, setLoading] = useState(false);
   const styleUi = "text-blue absolute left-[10px] top-[60%]";
   const router = useRouter();
   async function submitHandler(e) {
     e.preventDefault();
-    
+
     if (type === "signup") {
       if (!email || !password || !name) {
-      toast.error("لطفا همه فیلدها را پر کنید");
-      return;
-    }
+        toast.error("لطفا همه فیلدها را پر کنید");
+        return;
+      }
+      setLoading((loading) => !loading);
+
       const data = await fetch("/api/auth/signup", {
         method: "POST",
         body: JSON.stringify({ email, password, name }),
         headers: { "Content-Type": "application/json" },
       });
       const res = await data.json();
+      setLoading((loading) => !loading);
       if (res.status === "failed") toast.error(res.message);
       if (res.status === "success") {
         toast.success(res.message);
@@ -36,14 +40,17 @@ function SignUpIn({ title, type }) {
       }
     } else {
       if (!email || !password) {
-      toast.error("لطفا همه فیلدها را پر کنید");
-      return;
-    }
+        toast.error("لطفا همه فیلدها را پر کنید");
+        return;
+      }
+      setLoading((loading) => !loading);
       const res = await signIn("credentials", {
         email,
         password,
         redirect: false,
       });
+      setLoading((loading) => !loading);
+
       if (res.error) {
         toast.error(res.error);
         return;
@@ -131,14 +138,20 @@ function SignUpIn({ title, type }) {
               />
             </div>
           )}
-          <div>
+          <div className="relative">
             <button
               type="submit"
               className="w-full border-2 rounded-[13px] outline-none p-2
-               bg-[#FF510C] text-[14px] border-none text-white font-semibold lg:text-[16px] lg:p-3"
+               bg-[#FF510C] text-[14px] border-none text-white font-semibold lg:text-[16px] lg:p-3 disabled:bg-[#eab199]"
+              disabled={!!loading && true}
             >
               {title}
             </button>
+            <div
+              className={`w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin 
+              absolute left-[10px] top-[30%] ${!loading && "hidden"}
+              }`}
+            ></div>
           </div>
         </form>
       </div>
