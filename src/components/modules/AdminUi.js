@@ -5,7 +5,7 @@ import { useRef, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { MdDelete } from "react-icons/md";
 
-function AdminUi({ email }) {
+function AdminUi({ email , name }) {
   const [title, setTitle] = useState("");
   const [description, setDesc] = useState("");
   const [features, setFeatures] = useState([{ id: uuidv4(), title: "" }]);
@@ -53,6 +53,7 @@ function AdminUi({ email }) {
     formData.append("email", email);
     formData.append("features", JSON.stringify(features));
     formData.append("category", category);
+    formData.append("name", name);
 
     const res = await fetch("/api/ads", {
       method: "POST",

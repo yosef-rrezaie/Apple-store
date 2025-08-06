@@ -20,13 +20,12 @@ async function Admin() {
     return;
   }
   const user = await User.findOne({ email });
-  console.log(user._id);
   if (user.role !== "Admin") {
     redirect("/");
   } else {
     return (
       <>
-        <AdminUi email={email}/>
+        <AdminUi email={email} name={user.name} />
       </>
     );
   }

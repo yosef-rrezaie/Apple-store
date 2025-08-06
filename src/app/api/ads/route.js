@@ -39,6 +39,7 @@ export async function POST(req) {
   const email = formData.get("email");
   const features = formData.get("features");
   const category = formData.get("category");
+  const name = formData.get("name");
 
   if (!title || !description || !price || !code) {
     return NextResponse.json({
@@ -87,7 +88,9 @@ export async function POST(req) {
       imageUrl: result.secure_url,
       features,
       PublisherEmail: email,
+      PubliasherName : name , 
       category,
+
     });
 
     return NextResponse.json({ status: "success", ad: newAd});
