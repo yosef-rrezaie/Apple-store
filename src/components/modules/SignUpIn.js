@@ -9,15 +9,21 @@ import { FaRegEyeSlash } from "react-icons/fa";
 function SignUpIn({ title, type }) {
   const [password, setPassword] = useState("");
   const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const styleUi = "text-blue absolute left-[10px] top-[60%]";
   const router = useRouter();
   async function submitHandler(e) {
     e.preventDefault();
+    
     if (type === "signup") {
+      if (!email || !password || !name) {
+      toast.error("لطفا همه فیلدها را پر کنید");
+      return;
+    }
       const data = await fetch("/api/auth/signup", {
         method: "POST",
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify({ email, password, name }),
         headers: { "Content-Type": "application/json" },
       });
       const res = await data.json();
@@ -29,6 +35,10 @@ function SignUpIn({ title, type }) {
         }, 1500);
       }
     } else {
+      if (!email || !password) {
+      toast.error("لطفا همه فیلدها را پر کنید");
+      return;
+    }
       const res = await signIn("credentials", {
         email,
         password,
@@ -78,7 +88,7 @@ function SignUpIn({ title, type }) {
               onChange={(e) => setEmail(e.target.value)}
             />
           </div>
-          <div className="flex flex-col gap-y-2.5 mb-9 lg:mb-12 relative">
+          <div className="flex flex-col gap-y-2.5 mb-5 lg:mb-8 relative">
             <label
               className="font-semibold text-[#FF510C] lg:text-[18px]"
               htmlFor="password"
@@ -104,6 +114,23 @@ function SignUpIn({ title, type }) {
               />
             )}
           </div>
+          {type === "signup" && (
+            <div className="flex flex-col gap-y-2.5 mb-10">
+              <label
+                className="font-semibold text-[#FF510C] lg:text-[18px]"
+                htmlFor="name"
+              >
+                نام فروشگاه :
+              </label>
+              <input
+                type="text"
+                className=" border-2 p-2 rounded-[10px] outline-none  border-[#FF510C21] text-[14px] lg:p-3"
+                id="name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
+            </div>
+          )}
           <div>
             <button
               type="submit"

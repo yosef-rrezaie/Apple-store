@@ -5,9 +5,9 @@ import { FaStore } from "react-icons/fa";
 function Products() {
   return (
     <div className="mt-6 px-6 ">
-      <div className=" mt-4 space-y-4 md:hidden">
+      <div className=" mt-4 space-y-4">
         <div className="flex items-center justify-between">
-          <label htmlFor="sort" className="text-sm font-medium text-gray-700">
+          <label htmlFor="sort" className="text-[14px] md:text-[16px] font-medium text-gray-700">
             مرتب‌سازی:
           </label>
           <select
@@ -35,7 +35,7 @@ function Products() {
             ].map((category) => (
               <button
                 key={category}
-                className="whitespace-nowrap border border-gray-300 px-3 py-1 text-sm rounded-full hover:bg-orange-100 hover:border-orange-400 transition"
+                className="whitespace-nowrap border border-gray-300 px-3 py-1 md:px-4 lg:px-5 text-sm rounded-full hover:bg-orange-100 hover:border-orange-400 transition"
               >
                 {category}
               </button>
