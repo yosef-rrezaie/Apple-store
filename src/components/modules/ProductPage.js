@@ -102,7 +102,6 @@ function ProductPage({ information }) {
           نظرات کاربران
         </h3>
 
-        {/* لیست نظرات (مثال استاتیک) */}
         <div className="space-y-4 mb-6">
           <div className="border border-gray-200 rounded-lg p-3">
             <p className="text-gray-800 font-medium">علی رضایی</p>
@@ -120,8 +119,6 @@ function ProductPage({ information }) {
             <p className="text-xs text-gray-400 mt-2">1402/11/22</p>
           </div>
         </div>
-
-        {/* فرم ثبت نظر جدید */}
         <form className="space-y-3">
           <input
             type="text"
