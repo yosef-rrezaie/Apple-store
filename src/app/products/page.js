@@ -3,10 +3,10 @@ import { connectDB } from "@/utils/DB/connectDB";
 import Ad from "@/utils/DB/modelAd";
 
 async function page({ searchParams }) {
-  const category = searchParams.category || "all";
-  const sort = searchParams.sort || "expensive";
+  const category = searchParams.category || "همه";
+  const sort = searchParams.sort || "101";
   const search = searchParams.search || "";
-  console.log(sort);
+  console.log(category , sort , search);
   try {
     await connectDB();
     const filter = {};
@@ -18,11 +18,11 @@ async function page({ searchParams }) {
     }
 
     const sortOptions = {};
-    if (sort === "expensive") {
+    if (sort === "102") {
       sortOptions.price = -1;
-    } else if (sort === "cheap") {
+    } else if (sort === "101") {
       sortOptions.price = -1;
-    }  else if (sort === "latest") {
+    }  else if (sort === "103") {
       sortOptions.createdAt = -1;
     }
 

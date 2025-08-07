@@ -1,23 +1,46 @@
+"use client";
 import { sp } from "@/utils/replaceNumber";
 import Image from "next/image";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
 import { FaStore } from "react-icons/fa";
 
 function MainProducts() {
+  const router = useRouter();
+  const searchParams = useSearchParams();
+  const [priceSort, setPriceSort] = useState(searchParams.get("sort") || "101");
+  const categoryHandler = (category) => {
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("category", category);
+    router.push(`?${params.toString()}`);
+  };
+  const sortHandler = (e) => {
+    const selectedSort = e.target.value;
+    setPriceSort(selectedSort);
+    const params = new URLSearchParams(searchParams.toString());
+    params.set("sort", selectedSort);
+    router.push(`?${params.toString()}`);
+  };
   return (
     <div className="mt-6 px-6 ">
       <div className=" mt-4 space-y-4">
         <div className="flex items-center justify-between">
-          <label htmlFor="sort" className="text-[14px] md:text-[16px] font-medium text-gray-700">
+          <label
+            htmlFor="sort"
+            className="text-[14px] md:text-[16px] font-medium text-gray-700"
+          >
             مرتب‌سازی:
           </label>
           <select
             id="sort"
             className="border border-primary text-sm rounded-md p-1 focus:outline-none focus:ring-1 focus:ring-orange-500"
+            value={priceSort}
+            onChange={sortHandler}
           >
-            <option value="bestselling">پرفروش‌ترین</option>
-            <option value="cheapest">ارزان‌ترین</option>
-            <option value="expensive">گران‌ترین</option>
-            <option value="latest">جدیدترین</option>
+            <option value="101">ارزان‌ترین</option>
+            <option value="102">گران‌ترین</option>
+            <option value="103">جدیدترین</option>
+            {/* <option value="104">پرفروش‌ترین</option> */}
           </select>
         </div>
 
@@ -35,6 +58,7 @@ function MainProducts() {
             ].map((category) => (
               <button
                 key={category}
+                onClick={() => categoryHandler(category)}
                 className="whitespace-nowrap border border-gray-300 px-3 py-1 md:px-4 lg:px-5 text-sm rounded-full hover:bg-orange-100 hover:border-orange-400 transition"
               >
                 {category}
