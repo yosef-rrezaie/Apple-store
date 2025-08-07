@@ -8,8 +8,10 @@ import { FaStore } from "react-icons/fa";
 function MainProducts() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [priceSort, setPriceSort] = useState(searchParams.get("sort") || "101");
+  const [priceSort, setPriceSort] = useState(searchParams.get("sort") || 101);
+  const [categorySort, setCategorySort] = useState(searchParams.get("category") || "همه");
   const categoryHandler = (category) => {
+    setCategorySort(category)
     const params = new URLSearchParams(searchParams.toString());
     params.set("category", category);
     router.push(`?${params.toString()}`);
@@ -59,7 +61,8 @@ function MainProducts() {
               <button
                 key={category}
                 onClick={() => categoryHandler(category)}
-                className="whitespace-nowrap border border-gray-300 px-3 py-1 md:px-4 lg:px-5 text-sm rounded-full hover:bg-orange-100 hover:border-orange-400 transition"
+                className={`whitespace-nowrap border border-gray-300 px-3 py-1 md:px-4 lg:px-5 text-sm rounded-full
+                 hover:bg-orange-100 hover:border-orange-400 transition ${category===categorySort && "bg-primary text-white"}`}
               >
                 {category}
               </button>
