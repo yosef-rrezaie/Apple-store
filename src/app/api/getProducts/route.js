@@ -5,8 +5,8 @@ import { NextResponse } from "next/server";
 export async function GET() {
   try {
     await connectDB();
-    const ads = await Ad.find({});
-    return NextResponse.json({ status: "success", ads });
+    const ads = await Ad.find({ published: false });
+    return NextResponse.json({ status: "success", data: ads });
   } catch (err) {
     return NextResponse.json({ status: "failed", data: err.message });
   }

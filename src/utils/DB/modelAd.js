@@ -9,9 +9,13 @@ const AdSchema = new mongoose.Schema({
   imageUrl: { type: String, required: true },
   features: [Object],
   PublisherEmail: String,
-  PubliasherName : String , 
-  category : String ,
+  PubliasherName: String,
+  category: String,
   createdAt: { type: Date, default: Date.now },
+  published: {
+    type: Boolean,
+    default: false,
+  },
 });
 
 const Ad = models.Ad || model("Ad", AdSchema);
