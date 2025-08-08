@@ -95,8 +95,9 @@ function MainProducts() {
 
           <div className="mt-4 flex justify-end">
             <button className="bg-orange-500 text-white px-3 py-1 rounded-md text-sm hover:bg-orange-600 transition">
-              افزودن به سبد خرید
+                 افزودن به سبد خرید
             </button>
+           
           </div>
         </div>
       </div>

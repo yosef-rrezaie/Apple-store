@@ -14,11 +14,11 @@ function AdminUi({ email, name }) {
 
   return (
     <div className="w-full px-6">
-      <div className="mt-4 flex gap-3  pb-3">
+      <div className="mt-4 flex gap-3 pb-3 overflow-x-auto scrollbar-hide">
         {tabs.map((item) => (
           <button
             key={item.id}
-            className={`px-4 py-2 rounded-[10px] font-semibold ${
+            className={`flex-shrink-0 px-4 py-2 rounded-[10px] font-semibold ${
               activeTab === item.id
                 ? "bg-[#FF510C] text-white"
                 : "bg-gray-100 text-gray-600"
