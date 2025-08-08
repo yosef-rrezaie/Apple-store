@@ -11,3 +11,17 @@ export async function GET() {
     return NextResponse.json({ status: "failed", data: err.message });
   }
 }
+
+export async function POST(req) {
+  try {
+    await connectDB();
+    const {id} = await req.json()
+    const ad = await Ad.findOne({_id : id})
+    console.log(ad)
+    ad.published = true
+    ad.save()
+    return NextResponse.json({ status: "success"});
+  } catch (err) {
+    return NextResponse.json({ status: "failed"});
+  }
+}
