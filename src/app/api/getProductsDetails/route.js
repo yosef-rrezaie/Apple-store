@@ -25,3 +25,13 @@ export async function POST(req) {
     return NextResponse.json({ status: "failed"});
   }
 }
+export async function DELETE(req) {
+  try {
+    await connectDB();
+    const {id} = await req.json()
+    const ad = await Ad.deleteOne({_id : id})
+    return NextResponse.json({ status: "success"});
+  } catch (err) {
+    return NextResponse.json({ status: "failed"});
+  }
+}

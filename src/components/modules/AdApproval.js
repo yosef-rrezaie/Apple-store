@@ -3,20 +3,15 @@ import { sp } from "@/utils/replaceNumber";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FaStore } from "react-icons/fa";
+import useSWR from "swr";
 
 function AdApproval() {
-  const [loading, setLoading] = useState(true);
-  const [data, setData] = useState([]);
-  useEffect(() => {
-    async function getProducts() {
-      const res = await fetch("/api/getProductsDetails");
-      const result = await res.json();
-      setData(result);
-      setLoading(false);
-      console.log(result);
-    }
-    getProducts();
-  }, []);
+  const fetcher = (url) => fetch(url).then((res) => res.json());
+  const { data, error, isLoading, mutate } = useSWR(
+    "/api/getProductsDetails",
+    fetcher
+  );
+  console.log(data);
 
   async function approvalHandler(id) {
     const res = await fetch("/api/getProductsDetails", {
@@ -26,11 +21,26 @@ function AdApproval() {
     });
     const result = await res.json();
     console.log(result);
+    mutate();
   }
-  function deleteHandler(id) {
-    console.log(id);
+  async function deleteHandler(id) {
+    const res = await fetch("/api/getProductsDetails", {
+      method: "DELETE",
+      body: JSON.stringify({ id }),
+      headers: { "Content-Type": "application/json" },
+    });
+    const result = await res.json();
+    console.log(result);
+    mutate();
   }
-  if (loading) return <p>Is loading ...</p>;
+  if (isLoading)
+    return (
+      <div className="flex justify-center items-center min-h-screen">
+        <div
+          className="w-7 h-7 md:w-9 md:h-9 border-2 border-black border-t-transparent rounded-full animate-spin"
+        ></div>
+      </div>
+    );
   return (
     <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-8">
       {data.data.map((item) => (
