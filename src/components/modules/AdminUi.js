@@ -2,6 +2,7 @@
 import { useState } from "react";
 import AdApproval from "./AdApproval";
 import RegisterAd from "./RegisterAd";
+import AdComments from "./AdComments";
 
 const tabs = [
   { id: "create", label: "ثبت آگهی" },
@@ -31,6 +32,7 @@ function AdminUi({ email, name }) {
       </div>
       {activeTab === "create" && <RegisterAd email={email} name={name} />}
       {activeTab === "ads" && <AdApproval />}
+      {activeTab === "comments" && <AdComments />}
     </div>
   );
 }

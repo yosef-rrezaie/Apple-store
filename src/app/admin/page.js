@@ -17,7 +17,7 @@ async function Admin() {
     await connectDB();
   } catch (err) {
     console.log("erorr");
-    return;
+    return
   }
   const user = await User.findOne({ email });
   if (user.role !== "Admin") {
