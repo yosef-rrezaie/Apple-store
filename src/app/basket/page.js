@@ -1,71 +1,31 @@
-"use client";
-import Image from "next/image";
-import { GrAd } from "react-icons/gr";
-import { LuShoppingCart } from "react-icons/lu";
-import { FaStore } from "react-icons/fa";
-import { sp } from "@/utils/replaceNumber";
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { useSession } from "next-auth/react";
-import toast, { Toaster } from "react-hot-toast";
-import moment from "jalali-moment";
+import Image from "next/image"
+import { Toaster } from "react-hot-toast"
+import { FaStore } from "react-icons/fa"
 
-function ProductPage({ information }) {
-  const [desc, setDesc] = useState("");
-  const validation = useSession();
-  const filteredComments = information.comments.filter(
-    (item) => item.published === true
-  );
-
-  function basketHandler() {
-    if (validation.status === "unauthenticated")
-      return toast.error("ابتدا وارد حساب خود شوید");
-  }
-
-  async function clickHandler(id) {
-    if (validation.status === "unauthenticated")
-      return toast.error("ابتدا وارد حساب خود شوید");
-    const res = await fetch("/api/comments", {
-      method: "POST",
-      body: JSON.stringify({
-        id: information._id,
-        title: desc,
-        email: validation.data?.user?.email,
-      }),
-      headers: { "Content-Type": "application/json" },
-    });
-    const result = await res.json();
-    console.log(result);
-    if (result.status === "success") {
-      toast.success(result.message);
-      setDesc("");
-    } else {
-      toast.error("مشکل در سرور");
-    }
-  }
+function Basket() {
   return (
     <div className="">
       <div className="border bg-white shadow-md border-[#eb8d68] mx-6 mt-10 rounded-[13px] px-8 py-6 ">
         <div className="flex justify-center mb-6 ">
           <Image
-            src={information.imageUrl}
+            src="/images/airpadmax.png"
             width="1000"
             height="1000"
             className="rounded-xl shadow-md w-50 md:w-60"
-            alt={information.title}
+            alt="hello"
           />
         </div>
 
         <div className="text-center mb-4">
           <h2 className="text-2xl font-bold text-gray-800">
-            {information.title}
+            هدفون
           </h2>
           <p className="text-sm text-gray-500 mt-1">
-            دسته بندی : {information.category}
+            دسته بندی : ایرپاد
           </p>
         </div>
 
-        <div className="bg-gray-50 border border-dashed border-orange-200 p-4 rounded-xl mb-5">
+        {/* <div className="bg-gray-50 border border-dashed border-orange-200 p-4 rounded-xl mb-5">
           <p className="text-[#FF510C] font-semibold mb-3">ویژگی‌ها:</p>
           <div className="space-y-3">
             {JSON.parse(information.features).map((item) => (
@@ -75,12 +35,12 @@ function ProductPage({ information }) {
               </div>
             ))}
           </div>
-        </div>
+        </div> */}
 
         <div className="mb-6">
           <p className="text-[#FF510C] font-semibold mb-2">توضیحات:</p>
           <p className="text-justify text-gray-700 leading-relaxed font-medium">
-            {information.description}
+            سلام
           </p>
         </div>
 
@@ -124,7 +84,6 @@ function ProductPage({ information }) {
           <button
             className="bg-[#FF510C] hover:bg-orange-600 text-white px-5 py-2 rounded-xl flex items-center justify-center 
         transition-all w-full md:w-max"
-            onClick={() => basketHandler()}
           >
             <LuShoppingCart className="text-white text-lg" />
             <span className="mr-2 font-medium">افزودن به سبد خرید</span>
@@ -167,12 +126,10 @@ function ProductPage({ information }) {
             placeholder="نظر خود را بنویسید..."
             className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
             value={desc}
-            onChange={(e) => setDesc(e.target.value)}
           ></textarea>
           <button
             type="button"
             className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg w-full md:w-auto transition"
-            onClick={() => clickHandler(information._id)}
           >
             ارسال نظر
           </button>
@@ -180,7 +137,7 @@ function ProductPage({ information }) {
       </div>
       <Toaster />
     </div>
-  );
+  )
 }
 
-export default ProductPage;
+export default Basket
