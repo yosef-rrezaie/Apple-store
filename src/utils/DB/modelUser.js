@@ -21,7 +21,7 @@ const UserSchema = new mongoose.Schema({
     {
       title: String,
       ProductId: String,
-      publiashed: { type: Boolean, default: false },
+      published: { type: Boolean, default: false },
       createdAt: { type: Date, default: Date.now },
     },
   ],

@@ -13,7 +13,7 @@ import moment from "jalali-moment";
 function ProductPage({ information }) {
   const [desc, setDesc] = useState("");
   const validation = useSession();
-  const filteredComments = information.comments.filter(item=> item.publiashed === true)
+  const filteredComments = information.comments.filter(item=> item.published === true)
 
   async function clickHandler(id) {
     if (validation.status === "unauthenticated")
