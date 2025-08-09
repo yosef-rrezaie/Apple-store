@@ -17,9 +17,26 @@ function ProductPage({ information }) {
     (item) => item.published === true
   );
 
-  function basketHandler() {
+  async function basketHandler(email, id, number) {
+    console.log(email , id , number)
     if (validation.status === "unauthenticated")
       return toast.error("ابتدا وارد حساب خود شوید");
+    const res = await fetch("/api/basket", {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        productId:id,
+        number,
+      }),
+      headers: { "Content-Type": "application/json" },
+    });
+    const result = await res.json();
+    console.log("result : " , result);
+    if (result.status === "success") {
+      toast.success(result.message);
+    } else {
+      toast.error("مشکل در سرور");
+    }
   }
 
   async function clickHandler(id) {
@@ -124,7 +141,9 @@ function ProductPage({ information }) {
           <button
             className="bg-[#FF510C] hover:bg-orange-600 text-white px-5 py-2 rounded-xl flex items-center justify-center 
         transition-all w-full md:w-max"
-            onClick={() => basketHandler()}
+            onClick={() =>
+              basketHandler(validation.data.user.email, information._id, 1)
+            }
           >
             <LuShoppingCart className="text-white text-lg" />
             <span className="mr-2 font-medium">افزودن به سبد خرید</span>

@@ -1,5 +1,6 @@
-import User from "@/components/layout/User";
 import { connectDB } from "@/utils/DB/connectDB";
+import User from "@/utils/DB/modelUser";
+import { NextResponse } from "next/server";
 
 export async function POST(req) {
   try {
