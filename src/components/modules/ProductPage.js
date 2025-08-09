@@ -6,8 +6,17 @@ import { FaStore } from "react-icons/fa";
 import { sp } from "@/utils/replaceNumber";
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
+import { useSession } from "next-auth/react";
+import toast, { Toaster } from "react-hot-toast";
 
 function ProductPage({ information }) {
+  const validation = useSession();
+  console.log(validation);
+
+  function clickHandler() {
+    if (validation.status === "unauthenticated")
+      return toast.error("ابتدا وارد حساب خود شوید");
+  }
   return (
     <div className="">
       <div className="border bg-white shadow-md border-[#eb8d68] mx-6 mt-10 rounded-[13px] px-8 py-6 ">
@@ -120,24 +129,26 @@ function ProductPage({ information }) {
           </div>
         </div>
         <form className="space-y-3">
-          <input
+          {/* <input
             type="text"
             placeholder="نام شما"
             className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
-          />
+          /> */}
           <textarea
             rows="3"
             placeholder="نظر خود را بنویسید..."
             className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
           ></textarea>
           <button
-            type="submit"
+            type="button"
             className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg w-full md:w-auto transition"
+            onClick={clickHandler}
           >
             ارسال نظر
           </button>
         </form>
       </div>
+      <Toaster />
     </div>
   );
 }
