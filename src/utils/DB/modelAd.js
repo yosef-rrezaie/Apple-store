@@ -11,6 +11,15 @@ const AdSchema = new mongoose.Schema({
   PublisherEmail: String,
   PublisherName: String,
   category: String,
+  comments: [
+    {
+      title: String,
+      email: String,
+      name: String,
+      publiashed : {type : Boolean , default : false } , 
+      createdAt: { type: Date, default: Date.now },
+    },
+  ],
   createdAt: { type: Date, default: Date.now },
   published: {
     type: Boolean,

@@ -8,14 +8,30 @@ import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import toast, { Toaster } from "react-hot-toast";
+import moment from "jalali-moment";
 
 function ProductPage({ information }) {
+  const [desc, setDesc] = useState("");
   const validation = useSession();
-  console.log(validation);
+  const filteredComments = information.comments.filter(item=> item.publiashed === true)
 
-  function clickHandler() {
+  async function clickHandler(id) {
     if (validation.status === "unauthenticated")
       return toast.error("ابتدا وارد حساب خود شوید");
+    const res = await fetch("/api/comments", {
+      method: "POST",
+      body: JSON.stringify({
+        id: information._id,
+        title: desc,
+        email: validation.data?.user?.email,
+      }),
+      headers: { "Content-Type": "application/json" },
+    });
+    const result = await res.json();
+    if (result.status === "success") {
+      toast.success(result.message);
+      setDesc("");
+    }
   }
   return (
     <div className="">
@@ -111,23 +127,22 @@ function ProductPage({ information }) {
           نظرات کاربران
         </h3>
 
-        <div className="space-y-4 mb-6">
-          <div className="border border-gray-200 rounded-lg p-3">
-            <p className="text-gray-800 font-medium">علی رضایی</p>
-            <p className="text-sm text-gray-600 mt-1">
-              خیلی از این محصول راضی‌ام، کیفیت ساختش عالیه 👌
-            </p>
-            <p className="text-xs text-gray-400 mt-2">1402/11/20</p>
+        {filteredComments.length ? filteredComments.map((item) => (
+          <div className="space-y-4 mb-6">
+            <div className="border border-gray-200 rounded-lg p-3">
+              <p className="text-gray-800 font-medium">{item.name}</p>
+              <p className="text-sm text-gray-600 mt-1">{item.title}</p>
+              <p className="text-xs text-gray-400 mt-2">
+                {moment(item.createdAt)
+                  .locale("fa")
+                  .format("YYYY/MM/DD")}
+              </p>
+            </div>
           </div>
-
-          <div className="border border-gray-200 rounded-lg p-3">
-            <p className="text-gray-800 font-medium">مریم غلامی</p>
-            <p className="text-sm text-gray-600 mt-1">
-              بسته‌بندی عالی بود ولی ارسال کمی تأخیر داشت.
-            </p>
-            <p className="text-xs text-gray-400 mt-2">1402/11/22</p>
-          </div>
-        </div>
+        )) : <div className="my-4 flex flex-col justify-center items-center text-center">
+            <p className="font-semibold">تاکنون نظری ثبت نشده است</p>
+            <p>شما اولین نفری باشید که نظر خود را ثبت کنید</p>
+          </div>}
         <form className="space-y-3">
           {/* <input
             type="text"
@@ -138,11 +153,13 @@ function ProductPage({ information }) {
             rows="3"
             placeholder="نظر خود را بنویسید..."
             className="w-full border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-orange-500"
+            value={desc}
+            onChange={(e) => setDesc(e.target.value)}
           ></textarea>
           <button
             type="button"
             className="bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-lg w-full md:w-auto transition"
-            onClick={clickHandler}
+            onClick={() => clickHandler(information._id)}
           >
             ارسال نظر
           </button>
