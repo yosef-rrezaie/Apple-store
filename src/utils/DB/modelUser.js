@@ -17,6 +17,14 @@ const UserSchema = new mongoose.Schema({
     type: String,
     default: "User",
   },
+  comments: [
+    {
+      title: String,
+      ProductId: String,
+      publiashed: { type: Boolean, default: false },
+      createdAt: { type: Date, default: Date.now },
+    },
+  ],
   createdAt: { type: Date, default: Date.now },
 });
 
