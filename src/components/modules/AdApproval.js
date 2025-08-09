@@ -3,6 +3,7 @@ import { sp } from "@/utils/replaceNumber";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import { FaStore } from "react-icons/fa";
+import { MdInfoOutline } from "react-icons/md";
 import useSWR from "swr";
 
 function AdApproval() {
@@ -36,9 +37,17 @@ function AdApproval() {
   if (isLoading)
     return (
       <div className="flex justify-center items-center min-h-screen">
-        <div
-          className="w-7 h-7 md:w-9 md:h-9 border-2 border-black border-t-transparent rounded-full animate-spin"
-        ></div>
+        <div className="w-7 h-7 md:w-9 md:h-9 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+      </div>
+    );
+
+  if (!data.data.length)
+    return (
+      <div className="min-h-screen justify-center flex items-center">
+        <div className="text-center text-gray-500 py-6 flex flex-col items-center gap-2">
+          <MdInfoOutline size={40} className="text-primary" />
+          <p>آگهی موجود نیست</p>
+        </div>
       </div>
     );
   return (
