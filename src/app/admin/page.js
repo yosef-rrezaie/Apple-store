@@ -7,6 +7,7 @@ import { redirect } from "next/navigation";
 
 async function Admin() {
   const session = await getServerSession(authOptions);
+  console.log(session)
   if (!session) {
     redirect("/");
   }
@@ -20,6 +21,8 @@ async function Admin() {
     return
   }
   const user = await User.findOne({ email });
+  if(!user) redirect("/")
+
   if (user.role !== "Admin") {
     redirect("/");
   } else {
