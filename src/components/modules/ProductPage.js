@@ -13,7 +13,9 @@ import moment from "jalali-moment";
 function ProductPage({ information }) {
   const [desc, setDesc] = useState("");
   const validation = useSession();
-  const filteredComments = information.comments.filter(item=> item.published === true)
+  const filteredComments = information.comments.filter(
+    (item) => item.published === true
+  );
 
   async function clickHandler(id) {
     if (validation.status === "unauthenticated")
@@ -28,9 +30,12 @@ function ProductPage({ information }) {
       headers: { "Content-Type": "application/json" },
     });
     const result = await res.json();
+    console.log(result)
     if (result.status === "success") {
       toast.success(result.message);
       setDesc("");
+    } else {
+      toast.error("مشکل در سرور");
     }
   }
   return (
@@ -127,22 +132,24 @@ function ProductPage({ information }) {
           نظرات کاربران
         </h3>
 
-        {filteredComments.length ? filteredComments.map((item) => (
-          <div className="space-y-4 mb-6">
-            <div className="border border-gray-200 rounded-lg p-3">
-              <p className="text-gray-800 font-medium">{item.name}</p>
-              <p className="text-sm text-gray-600 mt-1">{item.title}</p>
-              <p className="text-xs text-gray-400 mt-2">
-                {moment(item.createdAt)
-                  .locale("fa")
-                  .format("YYYY/MM/DD")}
-              </p>
+        {filteredComments.length ? (
+          filteredComments.map((item) => (
+            <div className="space-y-4 mb-6">
+              <div className="border border-gray-200 rounded-lg p-3">
+                <p className="text-gray-800 font-medium">{item.name}</p>
+                <p className="text-sm text-gray-600 mt-1">{item.title}</p>
+                <p className="text-xs text-gray-400 mt-2">
+                  {moment(item.createdAt).locale("fa").format("YYYY/MM/DD")}
+                </p>
+              </div>
             </div>
-          </div>
-        )) : <div className="my-4 flex flex-col justify-center items-center text-center">
+          ))
+        ) : (
+          <div className="my-4 flex flex-col justify-center items-center text-center">
             <p className="font-semibold">تاکنون نظری ثبت نشده است</p>
             <p>شما اولین نفری باشید که نظر خود را ثبت کنید</p>
-          </div>}
+          </div>
+        )}
         <form className="space-y-3">
           {/* <input
             type="text"
