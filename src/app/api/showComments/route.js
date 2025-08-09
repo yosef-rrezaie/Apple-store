@@ -53,7 +53,7 @@ export async function POST(req) {
 export async function DELETE(req) {
   await connectDB();
   try {
-    const { productId, commentId, email } = await req.json();
+    const { productId, commentId, email , commentTitle } = await req.json();
 
     await Ad.updateOne(
       { _id: productId },
@@ -62,7 +62,7 @@ export async function DELETE(req) {
 
     await User.updateOne(
       { email },
-      { $pull: { comments: { ProductId: productId } } }
+      { $pull: { comments: { ProductId: productId , title : commentTitle  } } }
     );
 
     return NextResponse.json({ status: "success", message: "نظر حذف شد" });

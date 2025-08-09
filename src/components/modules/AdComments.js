@@ -21,10 +21,10 @@ function AdComments() {
     if (result.status === "success") mutate();
   }
 
-  async function deleteComment(productId, commentId, email) {
+  async function deleteComment(productId, commentId, email ,  commentTitle) {
     const res = await fetch("/api/showComments", {
       method: "DELETE",
-      body: JSON.stringify({ productId, commentId, email }),
+      body: JSON.stringify({ productId, commentId, email , commentTitle }),
       headers: { "Content-Type": "application/json" },
     });
     const result = await res.json();
@@ -80,7 +80,7 @@ function AdComments() {
               <button
                 className="bg-orange-500 text-white px-3 py-1 rounded-md text-sm hover:bg-orange-600 transition"
                 onClick={() =>
-                  deleteComment(product._id, comment._id, comment.email)
+                  deleteComment(product._id, comment._id, comment.email , comment.title)
                 }
               >
                 حذف
