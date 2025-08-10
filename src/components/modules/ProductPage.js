@@ -17,8 +17,7 @@ function ProductPage({ information }) {
     (item) => item.published === true
   );
 
-  async function basketHandler(email, id, number) {
-    console.log(email , id , number)
+  async function basketHandler(email, id, number ) {
     if (validation.status === "unauthenticated")
       return toast.error("ابتدا وارد حساب خود شوید");
     const res = await fetch("/api/basket", {
@@ -26,7 +25,7 @@ function ProductPage({ information }) {
       body: JSON.stringify({
         email,
         productId:id,
-        number,
+        number
       }),
       headers: { "Content-Type": "application/json" },
     });

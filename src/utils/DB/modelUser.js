@@ -25,7 +25,7 @@ const UserSchema = new mongoose.Schema({
       createdAt: { type: Date, default: Date.now },
     },
   ],
-  basket : [{productId : String , number : Number}] ,
+  basket : [{productId : String , number : Number }] ,
   createdAt: { type: Date, default: Date.now },
 });
 

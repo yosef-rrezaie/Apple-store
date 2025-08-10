@@ -5,7 +5,7 @@ import { NextResponse } from "next/server";
 export async function POST(req) {
   try {
     await connectDB();
-    const { email, productId, number } = await req.json();
+    const { email, productId, number} = await req.json();
     const user = await User.findOne({ email });
     const existingItem = user.basket.find(
       (item) => item.productId === productId
