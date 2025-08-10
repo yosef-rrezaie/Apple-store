@@ -125,8 +125,8 @@ function BasketPage({ informations, email }) {
               </div>
 
               <button
-                onClick={() => setCount((prev) => prev + 1)}
-                className="w-6 h-6 bg-green-500 text-white rounded-md  flex items-center justify-center"
+                onClick={() => clickHandler(email, information._id, +1)}
+                className="w-6 h-6 bg-green-500 text-white rounded-md  flex items-center justify-center "
               >
                 +
               </button>
