@@ -4,9 +4,13 @@ import { sp } from "@/utils/replaceNumber";
 import Image from "next/image";
 import { Toaster } from "react-hot-toast";
 import { FaStore } from "react-icons/fa";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 
-function BasketPage({ informations }) {
+function BasketPage({ informations, email }) {
+    const router = useRouter()
+  console.log(informations);
+  const [count, setCount] = useState(0);
   const { totalPrice, totalDiscount } = useMemo(() => {
     let totalPrice = 0;
     let totalDiscount = 0;
@@ -24,6 +28,21 @@ function BasketPage({ informations }) {
 
     return { totalPrice, totalDiscount };
   }, [informations]);
+
+  async function clickHandler(email, id, number) {
+    const res = await fetch("/api/basket", {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        productId: id,
+        number,
+      }),
+      headers: { "Content-Type": "application/json" },
+    });
+    const result = await res.json();
+    router.refresh()
+    console.log("result : ", result);
+  }
 
   return (
     <div className="grid">
@@ -92,6 +111,25 @@ function BasketPage({ informations }) {
                   </>
                 )}
               </div>
+            </div>
+            <div className="flex items-center justify-end gap-4 mt-4">
+              <button
+                onClick={() => clickHandler(email, information._id, -1)}
+                className="w-6 h-6 bg-red-500 text-white rounded-md  flex items-center justify-center"
+              >
+                -
+              </button>
+
+              <div className="w-8 h-8 border-2 border-gray-300 rounded-md flex items-center justify-center  font-semibold">
+                {information.number}
+              </div>
+
+              <button
+                onClick={() => setCount((prev) => prev + 1)}
+                className="w-6 h-6 bg-green-500 text-white rounded-md  flex items-center justify-center"
+              >
+                +
+              </button>
             </div>
           </div>
         ))}

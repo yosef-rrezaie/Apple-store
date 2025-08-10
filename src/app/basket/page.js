@@ -24,7 +24,7 @@ async function Basket() {
       }
     }
     const safeData = JSON.parse(JSON.stringify(basketWithDetails));
-    return <BasketPage informations={safeData} />;
+    return <BasketPage informations={safeData} email={email} />;
   } catch (err) {
     console.log("erorr");
   }
