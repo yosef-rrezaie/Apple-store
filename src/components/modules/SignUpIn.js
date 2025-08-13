@@ -127,7 +127,7 @@ function SignUpIn({ title, type }) {
                 className="font-semibold text-[#FF510C] lg:text-[18px]"
                 htmlFor="name"
               >
-                نام فروشگاه :
+                نام  :
               </label>
               <input
                 type="text"

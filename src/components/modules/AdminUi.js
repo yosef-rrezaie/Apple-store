@@ -3,11 +3,13 @@ import { useState } from "react";
 import AdApproval from "./AdApproval";
 import RegisterAd from "./RegisterAd";
 import AdComments from "./AdComments";
+import AddAdmin from "./AddAdmin";
 
 const tabs = [
   { id: "create", label: "ثبت آگهی" },
   { id: "ads", label: "تایید آگهی‌ها" },
   { id: "comments", label: "تایید نظرات کاربران" },
+  { id: "addAdmin", label: "اضافه کردن مدیر جدید" },
 ];
 
 function AdminUi({ email, name }) {
@@ -33,6 +35,7 @@ function AdminUi({ email, name }) {
       {activeTab === "create" && <RegisterAd email={email} name={name} />}
       {activeTab === "ads" && <AdApproval />}
       {activeTab === "comments" && <AdComments />}
+      {activeTab === "addAdmin" && <AddAdmin text={email} />}
     </div>
   );
 }
