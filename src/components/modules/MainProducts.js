@@ -23,7 +23,7 @@ function MainProducts() {
   const [categorySort, setCategorySort] = useState(
     searchParams.get("category") || "همه"
   );
-  const [search, setSearch] = useState(searchParams.get("search") || "");
+const search = searchParams.get("search") || ""; 
   console.log(search);
   const [products, setProducts] = useState([]);
 

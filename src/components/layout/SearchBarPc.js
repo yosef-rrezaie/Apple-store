@@ -6,7 +6,7 @@ import { useRouter, useSearchParams } from "next/navigation";
 function SearchBarPc() {
   const router = useRouter();
   const searchParams = useSearchParams();
-  const [searchBar, setSearchBar] = useState("");
+  const [searchBar, setSearchBar] = useState(searchParams.get("search") || "");
   function clickHandler() {
     const params = new URLSearchParams(searchParams.toString());
     params.set("search", searchBar);
