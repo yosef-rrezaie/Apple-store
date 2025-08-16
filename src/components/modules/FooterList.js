@@ -24,6 +24,7 @@ function FooterList({ name, item }) {
           width="1000"
           height="1000"
           className="w-4 h-4 md:hidden"
+          alt="arrow-down"
           ref={ref1}
           onClick={clickHandler}
         />

@@ -33,7 +33,7 @@ function Footer() {
             width="1000"
             height="1000"
             className="w-4 h-4 md:w-6.5 md:h-6.5"
-            alt=""
+            alt="insta-icon"
           />
         </div>
         <div className="md:bg-white md:p-4 md:rounded-[10px]">
@@ -42,7 +42,7 @@ function Footer() {
             width="1000"
             height="1000"
             className="w-4 h-4 md:w-6.5 md:h-6.5"
-            alt=""
+            alt="whatsapp-icon"
           />
         </div>
         <div className="md:bg-white md:p-4 md:rounded-[10px]">
@@ -51,7 +51,7 @@ function Footer() {
             width="1000"
             height="1000"
             className="w-4 h-4 md:w-6.5 md:h-6.5"
-            alt=""
+            alt="twitter-icon"
           />
         </div>
       </div>
@@ -61,6 +61,7 @@ function Footer() {
           width="1000"
           height="1000"
           className="w-15 h-21 md:w-24 md:h-33"
+          alt="enamad-icon"
         />
       </div>
       <div className="text-[10px]   pt-2 flex justify-center md : col-span-3  md:w-full  ">
