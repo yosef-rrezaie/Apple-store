@@ -23,7 +23,7 @@ function MainProducts() {
   const [categorySort, setCategorySort] = useState(
     searchParams.get("category") || "همه"
   );
-const search = searchParams.get("search") || ""; 
+  const search = searchParams.get("search") || "";
   console.log(search);
   const [products, setProducts] = useState([]);
 
@@ -33,8 +33,8 @@ const search = searchParams.get("search") || "";
     params.set("category", categorySort);
     const searchValue = searchParams.get("search") || "";
     if (searchValue.trim() !== "") {
-    params.set("search", searchValue);
-  }
+      params.set("search", searchValue);
+    }
 
     fetch(`/api/getFilterProducts?${params.toString()}`)
       .then((res) => res.json())
@@ -98,7 +98,7 @@ const search = searchParams.get("search") || "";
         </div>
       </div>
 
-      <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-8">
+      <div className="grid  grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-8">
         {products.map((p) => (
           <div
             key={p._id}
@@ -115,9 +115,33 @@ const search = searchParams.get("search") || "";
             </div>
             <p className="text-center font-semibold mt-2">{p.title}</p>
             <div className="mt-2 border-t border-gray-200"></div>
-            <p className="text-center text-red-600 text-lg font-bold mt-3">
-              {sp(p.price)} تومان
-            </p>
+            <div className=" flex flex-col items-center mb-5 md:mb-8 mt-4 justify-center">
+              {p.discount === 0 ? (
+                <p className="text-red-600 text-xl font-bold">
+                  {sp(p.price)} تومان
+                </p>
+              ) : (
+                <p className="text-red-600 text-xl font-bold">
+                  {sp(p.price - (p.discount / 100) * p.price)} تومان
+                </p>
+              )}
+              <div className="flex items-center gap-2 mt-1">
+                {p.discount === 0 ? (
+                  <span className="invisible">٪0 تخفیف</span> 
+                ) : (
+                  <span className="text-sm text-white bg-red-500 px-2 py-0.5 rounded-full">
+                    ٪{sp(p.discount)} تخفیف
+                  </span>
+                )}
+                <p
+                  className={`line-through text-gray-400 text-sm ${
+                    p.discount === 0 && "hidden"
+                  }`}
+                >
+                  {sp(p.price)} تومان
+                </p>
+              </div>
+            </div>
             <div className="mt-4 flex items-center">
               <FaStore className="text-red-500 text-xl" />
               <p className="mr-2 font-medium text-gray-700">

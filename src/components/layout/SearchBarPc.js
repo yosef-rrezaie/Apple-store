@@ -8,7 +8,7 @@ function SearchBarPc() {
   const searchParams = useSearchParams();
   const [searchBar, setSearchBar] = useState(searchParams.get("search") || "");
   function clickHandler() {
-    const params = new URLSearchParams(searchParams.toString());
+    const params = new URLSearchParams(searchParams.toString()); 
     params.set("search", searchBar);
     router.push(`/products?${params.toString()}`);
   }
