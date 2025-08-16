@@ -35,7 +35,7 @@ export default function BestSellSlider({ title , desc }) {
         }}
       >
         {desc === "allProducts" && allProducts.map((item) => (
-          <SwiperSlide className="!w-[200px] h-full lg:!w-[270px] lg:px-[7px] lg:box-border">
+          <SwiperSlide key={item.title} className="!w-[200px] h-full lg:!w-[270px] lg:px-[7px] lg:box-border">
             <SildeComponent
               src={item.src}
               title={item.title}
@@ -44,7 +44,7 @@ export default function BestSellSlider({ title , desc }) {
           </SwiperSlide>
         ))}
         {desc === "watchProducts" && watchProducts.map((item) => (
-          <SwiperSlide className="!w-[200px] h-full lg:!w-[270px] lg:px-[7px] lg:box-border">
+          <SwiperSlide  key={item.title} className="!w-[200px] h-full lg:!w-[270px] lg:px-[7px] lg:box-border">
             <SildeComponent
               src={item.src}
               title={item.title}

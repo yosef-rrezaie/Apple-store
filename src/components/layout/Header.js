@@ -1,8 +1,8 @@
 import Hamburger from "./Hamburger";
 import Logo from "./Logo";
 import SearchBarPc from "./SearchBarPc";
-import User from "./User";
 import SearchBarMobile from "./SearchBarMobile";
+import UserInfo from "./UserInfo";
 
 function Header() {
   return (
@@ -12,7 +12,7 @@ function Header() {
           <Hamburger />
           <Logo />
           <SearchBarPc />
-          <User />
+          <UserInfo />
         </div>
         <div className="w-full flex lg:hidden justify-between bg-[#F1F1F1] py-2.5 px-4 rounded-full">
           <SearchBarMobile />

@@ -127,7 +127,7 @@ function MainProducts() {
               )}
               <div className="flex items-center gap-2 mt-1">
                 {p.discount === 0 ? (
-                  <span className="invisible">٪0 تخفیف</span> 
+                  <span className="invisible">٪0 تخفیف</span>
                 ) : (
                   <span className="text-sm text-white bg-red-500 px-2 py-0.5 rounded-full">
                     ٪{sp(p.discount)} تخفیف

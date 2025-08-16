@@ -158,7 +158,7 @@ function ProductPage({ information }) {
 
         {filteredComments.length ? (
           filteredComments.map((item) => (
-            <div className="space-y-4 mb-6">
+            <div className="space-y-4 mb-6" key={item.title}>
               <div className="border border-gray-200 rounded-lg p-3">
                 <p className="text-gray-800 font-medium">{item.name}</p>
                 <p className="text-sm text-gray-600 mt-1">{item.title}</p>

@@ -20,7 +20,7 @@ function Footer() {
       </div>
       <div className=" py-2.5 block md:flex w-full md:justify-evenly md:row-start-1 md:row-end-3 md:col-span-3">
         {footerListData.map((items) => (
-          <FooterList id={items.id} name={items.name} item={items.item} />
+          <FooterList key={items.id} id={items.id} name={items.name} item={items.item} />
         ))}
       </div>
       <div
