@@ -4,21 +4,19 @@ import { GrAd } from "react-icons/gr";
 import { LuShoppingCart } from "react-icons/lu";
 import { FaStore } from "react-icons/fa";
 import { sp } from "@/utils/replaceNumber";
-import { useEffect, useState } from "react";
-import { useParams } from "next/navigation";
-import { useSession } from "next-auth/react";
+import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import moment from "jalali-moment";
 
-function ProductPage({ information }) {
+function ProductPage({ information , emailUser }) {
   const [desc, setDesc] = useState("");
-  const validation = useSession();
   const filteredComments = information.comments.filter(
     (item) => item.published === true
   );
+  console.log(emailUser)
 
   async function basketHandler(email, id, number ) {
-    if (validation.status === "unauthenticated")
+    if (emailUser==="NotFound")
       return toast.error("ابتدا وارد حساب خود شوید");
     const res = await fetch("/api/basket", {
       method: "POST",
@@ -39,14 +37,17 @@ function ProductPage({ information }) {
   }
 
   async function clickHandler(id) {
-    if (validation.status === "unauthenticated")
+
+    if (emailUser === "NotFound")
       return toast.error("ابتدا وارد حساب خود شوید");
+    if (desc === "")
+      return toast.error("لطفا فیلد را به درستی پر کنید");
     const res = await fetch("/api/comments", {
       method: "POST",
       body: JSON.stringify({
         id: information._id,
         title: desc,
-        email: validation.data?.user?.email,
+        email: emailUser,
       }),
       headers: { "Content-Type": "application/json" },
     });
@@ -141,7 +142,7 @@ function ProductPage({ information }) {
             className="bg-[#FF510C] hover:bg-orange-600 text-white px-5 py-2 rounded-xl flex items-center justify-center 
         transition-all w-full md:w-max"
             onClick={() =>
-              basketHandler(validation.data.user.email, information._id, 1)
+              basketHandler(emailUser, information._id, 1)
             }
           >
             <LuShoppingCart className="text-white text-lg" />

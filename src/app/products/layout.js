@@ -1,6 +1,4 @@
-"use client"
 import Header from "@/components/layout/Header";
-import { SessionProvider } from "next-auth/react";
 import React from "react";
 
 function layout({ children }) {
@@ -10,7 +8,8 @@ function layout({ children }) {
         <p>تا ۷۰٪ تخفیف برای لوازم جانبی اورجینال آیفون</p>
       </div>
       <Header />
-      <SessionProvider>{children}</SessionProvider>
+      {/* <SessionProvider>{children}</SessionProvider> */}
+      {children}
     </>
   );
 }
