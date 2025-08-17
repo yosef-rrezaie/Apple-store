@@ -8,7 +8,8 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
 function BasketPage({ informations, email }) {
-    const router = useRouter()
+  console.log(email)
+  const router = useRouter();
   console.log(informations);
   const [count, setCount] = useState(0);
   const { totalPrice, totalDiscount } = useMemo(() => {
@@ -40,8 +41,19 @@ function BasketPage({ informations, email }) {
       headers: { "Content-Type": "application/json" },
     });
     const result = await res.json();
-    router.refresh()
+    router.refresh();
     console.log("result : ", result);
+  }
+
+  async function completeOrder(email) {
+    const res = await fetch("/api/completeBasket", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email }),
+    });
+
+    const data = await res.json();
+    console.log(data);
   }
 
   return (
@@ -154,6 +166,7 @@ function BasketPage({ informations, email }) {
         <button
           className="bg-[#FF510C] hover:bg-orange-600 text-white px-5 py-2 rounded-xl flex items-center justify-center 
         transition-all w-full"
+          onClick={() => completeOrder(email)}
         >
           تکمیل سفارش
         </button>
