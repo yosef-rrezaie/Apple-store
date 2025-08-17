@@ -10,7 +10,7 @@ async function SignUp() {
   }
   return (
     <>
-      <SignUpIn title="ثبت نام" type="signup" />
+      <SignUpIn title="ثبت نام" type="signup"  />
     </>
   );
 }

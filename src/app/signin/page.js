@@ -11,7 +11,7 @@ async function SignIn() {
 
   return (
     <div>
-      <SignUpIn title="ورود" type="signin" />
+      <SignUpIn title="ورود" type="signin"  />
     </div>
   );
 }

@@ -1,8 +1,8 @@
 "use client";
 import { signIn } from "next-auth/react";
 import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
@@ -12,8 +12,18 @@ function SignUpIn({ title, type }) {
   const [name, setName] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [situation, setSituation] = useState("signin");
   const styleUi = "text-blue absolute left-[10px] top-[60%]";
   const router = useRouter();
+  const pathname = usePathname();
+  useEffect(() => {
+    if (pathname === "/signin") {
+      setSituation(() => "signin");
+    } else {
+      setSituation(() => "signup");
+    }
+  }, []);
+  console.log(pathname);
   async function submitHandler(e) {
     e.preventDefault();
 
@@ -75,7 +85,31 @@ function SignUpIn({ title, type }) {
               alt="app-store"
             />
           </div>
-          <div className="flex justify-center mb-9">
+          <div className="flex gap-3 justify-center">
+            <div
+              className={`w-[100px] md:w-[130px] rounded-[13px] p-3 text-center cursor-pointer
+              ${
+                situation === "signin"
+                  ? "bg-primary text-white"
+                  : "border-primary border text-black"
+              }`}
+              onClick={() => router.push("/signin")}
+            >
+              ورود
+            </div>
+            <div
+              className={`w-[90px] md:w-[120px] rounded-[13px] p-3 text-center cursor-pointer
+              ${
+                situation === "signup"
+                  ? "bg-primary text-white"
+                  : "border-primary border text-black"
+              }`}
+              onClick={() => router.push("/signup")}
+            >
+              ثبت نام
+            </div>
+          </div>
+          <div className="flex justify-center mb-9 mt-5">
             <p className="text-[22px] text-[#91563f] font-bold lg:text-[24px]">
               {title}
             </p>
@@ -127,7 +161,7 @@ function SignUpIn({ title, type }) {
                 className="font-semibold text-[#FF510C] lg:text-[18px]"
                 htmlFor="name"
               >
-                نام  :
+                نام :
               </label>
               <input
                 type="text"
