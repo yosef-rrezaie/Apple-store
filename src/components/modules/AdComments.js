@@ -54,7 +54,7 @@ function AdComments() {
             className="w-full bg-white rounded-lg shadow-md p-4 flex flex-col gap-4"
           >
             <div className="w-full flex justify-center">
-              <Image
+              <Image 
                 src={product.imageUrl}
                 width={1000}
                 height={1000}

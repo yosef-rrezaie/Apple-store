@@ -5,11 +5,14 @@ import { FaHome, FaProductHunt, FaCommentAlt } from "react-icons/fa";
 import { FiLogOut, FiMenu } from "react-icons/fi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import AccountUser from "./AccountUser";
+import CommentUser from "./CommentUser";
 
-export default function DashboardPage({ email }) {
+export default function DashboardPage({ userData }) {
   const [open, setOpen] = useState(false);
+  const [situation, setSituation] = useState("account");
   const toggleMenu = () => setOpen(!open);
-
+  console.log(userData);
+  function logOutHandler() {}
   return (
     <div className=" md:flex gap-7 py-6 px-45">
       <div>
@@ -24,20 +27,32 @@ export default function DashboardPage({ email }) {
         </div>
         {open && (
           <div className="md:hidden absolute right-4 mt-2 w-56 border-primary bg-white rounded-xl shadow-lg border py-2 z-50">
-            <div className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 transition">
+            <div
+              className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 transition"
+              onClick={() => setSituation("account")}
+            >
               <FaHome className="w-5 h-5" />
               <span>حساب کاربری</span>
             </div>
-            <div className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 transition">
+            <div
+              className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 transition"
+              onClick={() => setSituation("boughtProducts")}
+            >
               <FaProductHunt className="w-5 h-5" />
               <span>محصولات خریداری شده</span>
             </div>
-            <div className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 transition">
+            <div
+              className="flex items-center gap-3 px-4 py-2 hover:bg-gray-100 transition"
+              onClick={() => setSituation("comments")}
+            >
               <FaCommentAlt className="w-5 h-5" />
               <span>نظرات ثبت شده</span>
             </div>
 
-            <button className="flex items-center gap-3 px-4 py-2 text-red-600 hover:bg-red-50 w-full text-right">
+            <button
+              className="flex items-center gap-3 px-4 py-2 text-red-600 hover:bg-red-50 w-full text-right"
+              onClick={logOutHandler}
+            >
               <FiLogOut className="w-5 h-5" />
               <span>خروج</span>
             </button>
@@ -51,28 +66,45 @@ export default function DashboardPage({ email }) {
           </div>
 
           <div className="mt-6 flex flex-col gap-4">
-            <div className="flex items-center gap-3 hover:text-primary">
+            <div
+              className="flex items-center gap-3 hover:text-primary"
+              onClick={() => setSituation("account")}
+            >
               <FaHome className="w-5 h-5" />
               حساب کاربری
             </div>
-            <div className="flex items-center gap-3 hover:text-primary">
+            <div
+              className="flex items-center gap-3 hover:text-primary"
+              onClick={() => setSituation("boughtProducts")}
+            >
               <FaProductHunt className="w-5 h-5" />
               محصولات خریداری شده
             </div>
-            <div className="flex items-center gap-3 hover:text-primary">
+            <div
+              className="flex items-center gap-3 hover:text-primary"
+              onClick={() => setSituation("comments")}
+            >
               <FaCommentAlt className="w-5 h-5" />
               نظرات ثبت شده
             </div>
 
-            <button className="flex items-center gap-3 text-red-600 hover:text-red-700">
+            <button
+              className="flex items-center gap-3 text-red-600 hover:text-red-700"
+              onClick={logOutHandler}
+            >
               <FiLogOut className="w-5 h-5" />
               خروج
             </button>
           </div>
         </div>
       </div>
-      <div className="mt-7 w-full md:mt-0 bg-white rounded-2xl shadow-md ">
-        <AccountUser email={email} />
+      <div
+        className={`mt-7 w-full md:mt-0 bg-white rounded-2xl  ${
+          situation === "comments" ? "shadow-none" : "shadow-md"
+        }`}
+      >
+        {situation === "account" && <AccountUser data={userData} />}
+        {situation === "comments" && <CommentUser data={userData} />}
       </div>
     </div>
   );

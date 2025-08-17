@@ -2,7 +2,7 @@
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 
-function AccountUser({ email }) {
+function AccountUser({ data }) {
   const [oldPassword, setOldPassword] = useState("");
   const [newPassword, setNewPassword] = useState("");
   async function clickHandler() {
@@ -11,7 +11,7 @@ function AccountUser({ email }) {
     }
     const res = await fetch("/api/changePassword", {
       method: "POST",
-      body: JSON.stringify({ email, oldPassword, newPassword }),
+      body: JSON.stringify({ email:data.email , oldPassword, newPassword }),
       headers: { "Content-Type": "application/json" },
     });
     const result = await res.json();
@@ -28,8 +28,8 @@ function AccountUser({ email }) {
 
   return (
     <div className="p-8">
-      <p className="text-[25px]">سلام یوسف رضایی عزیز ❤️</p>
-      <p className="mt-3 text-primary">ایمیل شما : yosefrezaie5001@gmail.com</p>
+      <p className="text-[25px]">سلام  {data.name} عزیز ❤️</p>
+      <p className="mt-3 text-primary">ایمیل شما : {data.email}</p>
       <div className="mt-4">
         <p className="font-semibold">تغییر پسورد :</p>
         <div className="mt-5 flex flex-col gap-2">
