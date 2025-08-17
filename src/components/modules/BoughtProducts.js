@@ -1,0 +1,62 @@
+"use client";
+import Image from "next/image";
+
+export default function BoughtProducts({ data }) {
+  return (
+    <div className="grid gap-6 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+      {data.boughtBasket.map((item) => (
+        <div
+          key={item.productId}
+          className="bg-white shadow-lg rounded-2xl p-5 flex flex-col items-center hover:shadow-xl transition"
+        >
+          {/* عکس محصول */}
+          <div className="w-28 h-28 relative">
+            <Image
+              src={item.productImage}
+              alt={item.productTitle}
+              fill
+              className="object-cover rounded-lg"
+            />
+          </div>
+
+          {/* نام محصول */}
+          <h3 className="text-gray-800 font-bold text-lg mt-3 text-center">
+            {item.productTitle}
+          </h3>
+
+          {/* تعداد خرید */}
+          <p className="text-sm text-gray-600 mt-1">
+            تعداد خرید: <span className="font-medium">{item.number}</span>
+          </p>
+
+          {/* تاریخ خرید */}
+          <p className="text-xs text-gray-400 mt-2">
+            تاریخ خرید:{" "}
+            {new Date(item.boughtAt).toLocaleDateString("fa-IR", {
+              year: "numeric",
+              month: "long",
+              day: "numeric",
+            })}
+          </p>
+
+          {/* نوع محصول: لپتاپ یا گوشی */}
+          <span
+            className={`mt-3 px-3 py-1 text-xs font-semibold rounded-full ${
+              item.productTitle.includes("لپتاپ")
+                ? "bg-blue-100 text-blue-700"
+                : item.productTitle.includes("گوشی")
+                ? "bg-green-100 text-green-700"
+                : "bg-gray-100 text-gray-600"
+            }`}
+          >
+            {item.productTitle.includes("لپتاپ")
+              ? "💻 لپتاپ"
+              : item.productTitle.includes("گوشی")
+              ? "📱 گوشی"
+              : "📦 محصول"}
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}

@@ -8,7 +8,7 @@ import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 
 function BasketPage({ informations, email }) {
-  console.log(email)
+  console.log(email);
   const router = useRouter();
   console.log(informations);
   const [count, setCount] = useState(0);
@@ -54,6 +54,7 @@ function BasketPage({ informations, email }) {
 
     const data = await res.json();
     console.log(data);
+    router.refresh();
   }
 
   return (

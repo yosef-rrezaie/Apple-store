@@ -6,6 +6,7 @@ import { FiLogOut, FiMenu } from "react-icons/fi";
 import { BsThreeDotsVertical } from "react-icons/bs";
 import AccountUser from "./AccountUser";
 import CommentUser from "./CommentUser";
+import BoughtProducts from "./BoughtProducts";
 
 export default function DashboardPage({ userData }) {
   const [open, setOpen] = useState(false);
@@ -101,10 +102,11 @@ export default function DashboardPage({ userData }) {
       <div
         className={`mt-7 w-full md:mt-0 bg-white rounded-2xl  ${
           situation === "comments" ? "shadow-none" : "shadow-md"
-        }`}
+        } ${situation === "boughtProducts" ? "shadow-none" : "shadow-md"}`}
       >
         {situation === "account" && <AccountUser data={userData} />}
         {situation === "comments" && <CommentUser data={userData} />}
+        {situation === "boughtProducts" && <BoughtProducts data={userData} />}
       </div>
     </div>
   );
