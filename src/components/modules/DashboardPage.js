@@ -7,13 +7,18 @@ import { BsThreeDotsVertical } from "react-icons/bs";
 import AccountUser from "./AccountUser";
 import CommentUser from "./CommentUser";
 import BoughtProducts from "./BoughtProducts";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function DashboardPage({ userData }) {
   const [open, setOpen] = useState(false);
   const [situation, setSituation] = useState("account");
+  const router = useRouter();
   const toggleMenu = () => setOpen(!open);
   console.log(userData);
-  function logOutHandler() {}
+  function logOutHandler() {
+    signOut({ callbackUrl: "/signin" });
+  }
   return (
     <div className=" md:flex gap-7 py-6 px-45">
       <div>

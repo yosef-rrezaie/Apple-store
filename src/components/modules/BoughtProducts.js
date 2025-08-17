@@ -9,7 +9,6 @@ export default function BoughtProducts({ data }) {
           key={item.productId}
           className="bg-white shadow-lg rounded-2xl p-5 flex flex-col items-center hover:shadow-xl transition"
         >
-          {/* عکس محصول */}
           <div className="w-28 h-28 relative">
             <Image
               src={item.productImage}
@@ -19,19 +18,16 @@ export default function BoughtProducts({ data }) {
             />
           </div>
 
-          {/* نام محصول */}
           <h3 className="text-gray-800 font-bold text-lg mt-3 text-center">
             {item.productTitle}
           </h3>
 
-          {/* تعداد خرید */}
           <p className="text-sm text-gray-600 mt-1">
             تعداد خرید: <span className="font-medium">{item.number}</span>
           </p>
 
-          {/* تاریخ خرید */}
           <p className="text-xs text-gray-400 mt-2">
-            تاریخ خرید:{" "}
+            تاریخ خرید:
             {new Date(item.boughtAt).toLocaleDateString("fa-IR", {
               year: "numeric",
               month: "long",
@@ -39,7 +35,6 @@ export default function BoughtProducts({ data }) {
             })}
           </p>
 
-          {/* نوع محصول: لپتاپ یا گوشی */}
           <span
             className={`mt-3 px-3 py-1 text-xs font-semibold rounded-full ${
               item.productTitle.includes("لپتاپ")
