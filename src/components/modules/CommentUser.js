@@ -22,7 +22,7 @@ function CommentUser({ data }) {
             />
           )}
           <p className="text-gray-800 font-semibold text-center">
-            {comment.productTitle || "بدون عنوان"}
+            {comment.title || "بدون عنوان"}
           </p>
         </div>
       ))}

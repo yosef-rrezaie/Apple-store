@@ -142,12 +142,12 @@ function MainProducts() {
                 </p>
               </div>
             </div>
-            <div className="mt-4 flex items-center">
+            {/* <div className="mt-4 flex items-center">
               <FaStore className="text-red-500 text-xl" />
               <p className="mr-2 font-medium text-gray-700">
                 {p.storeName || "نام فروشگاه"}
               </p>
-            </div>
+            </div> */}
             <div className="mt-4 flex justify-end">
               <button className="bg-orange-500 text-white px-3 py-1 rounded-md text-sm hover:bg-orange-600 transition">
                 افزودن به سبد خرید

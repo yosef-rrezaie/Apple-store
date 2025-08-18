@@ -101,12 +101,12 @@ function ProductPage({ information , emailUser }) {
           </p>
         </div>
 
-        <div className="flex items-center mb-4">
+        {/* <div className="flex items-center mb-4">
           <FaStore className="text-red-500 text-xl" />
           <p className="mr-2 font-semibold text-gray-800">
             فروشگاه دیجیتال‌پلاس
           </p>
-        </div>
+        </div> */}
 
         <div className="flex flex-col md:flex-row-reverse md:items-center items-end justify-between mb-6 border-t border-gray-200 pt-4">
           <div className=" flex flex-col items-end mb-8 md:mb-13">

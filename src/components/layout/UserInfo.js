@@ -14,10 +14,15 @@ async function UserInfo() {
     const {
       user: { email },
     } = session;
-    await connectDB();
-    const authUser = await User.findOne({ email });
-    console.log(authUser.role);
-    return <Pannel role={authUser.role}/>
+    try {
+      await connectDB();
+      const authUser = await User.findOne({ email });
+      console.log(authUser.role);
+      return <Pannel role={authUser.role}/>
+
+    }catch(err) {
+      console.log(err)
+    }
   }
 }
 

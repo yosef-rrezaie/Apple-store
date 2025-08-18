@@ -2,16 +2,19 @@
 
 import { sp } from "@/utils/replaceNumber";
 import Image from "next/image";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { FaStore } from "react-icons/fa";
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
+import { TbBasketExclamation } from "react-icons/tb";
+import { BsThreeDots } from "react-icons/bs";
 
 function BasketPage({ informations, email }) {
   console.log(email);
   const router = useRouter();
   console.log(informations);
   const [count, setCount] = useState(0);
+  const [loading, setLoading] = useState(null);
   const { totalPrice, totalDiscount } = useMemo(() => {
     let totalPrice = 0;
     let totalDiscount = 0;
@@ -31,6 +34,7 @@ function BasketPage({ informations, email }) {
   }, [informations]);
 
   async function clickHandler(email, id, number) {
+    setLoading(id);
     const res = await fetch("/api/basket", {
       method: "POST",
       body: JSON.stringify({
@@ -41,8 +45,13 @@ function BasketPage({ informations, email }) {
       headers: { "Content-Type": "application/json" },
     });
     const result = await res.json();
-    router.refresh();
-    console.log("result : ", result);
+    if (result.status === "success") {
+      router.refresh();
+      setTimeout(() => {
+        setLoading(null);
+      }, 1000);
+      console.log("result : ", result);
+    }
   }
 
   async function completeOrder(email) {
@@ -53,8 +62,27 @@ function BasketPage({ informations, email }) {
     });
 
     const data = await res.json();
-    console.log(data);
-    router.refresh();
+    toast.success(data.message);
+    setInterval(() => {
+      router.refresh();
+    }, 1000);
+  }
+  if (!informations.length) {
+    return (
+      <div className="h-screen flex flex-col gap-5 justify-center items-center">
+        <p className="text-[18px] font-semibold md:text-[20px]">
+          متاسفانه سبد خرید شما خالی است !
+        </p>
+        <TbBasketExclamation className="text-primary text-9xl md:text-[145px]" />
+        <button
+          type="button"
+          className="mt-3 text-white font-semibold py-3 px-6 md:px-8 bg-primary rounded-[13px]"
+          onClick={() => router.push("/products")}
+        >
+          صفحه محصولات
+        </button>
+      </div>
+    );
   }
 
   return (
@@ -134,7 +162,11 @@ function BasketPage({ informations, email }) {
               </button>
 
               <div className="w-8 h-8 border-2 border-gray-300 rounded-md flex items-center justify-center  font-semibold">
-                {information.number}
+                {loading === information._id ? (
+                  <BsThreeDots className="animate-pulse" />
+                ) : (
+                  information.number
+                )}
               </div>
 
               <button

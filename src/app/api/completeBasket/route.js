@@ -17,7 +17,6 @@ export async function POST(req) {
       );
     }
 
-    // انتقال آیتم‌های basket به boughtBasket با اطلاعات محصول
     const itemsToAdd = await Promise.all(
       user.basket.map(async (item) => {
         const product = await Ad.findById(item.productId).lean();
