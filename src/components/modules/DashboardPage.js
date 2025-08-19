@@ -114,5 +114,5 @@ export default function DashboardPage({ userData }) {
         {situation === "boughtProducts" && <BoughtProducts data={userData} />}
       </div>
     </div>
-  );
+  ); 
 }
