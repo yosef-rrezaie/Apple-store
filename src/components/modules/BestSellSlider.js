@@ -35,7 +35,7 @@ export default function BestSellSlider({ title , desc }) {
         }}
       >
         {desc === "allProducts" && allProducts.map((item) => (
-          <SwiperSlide key={item.title} className="!w-[200px] h-full lg:!w-[270px] lg:px-[7px] lg:box-border">
+          <SwiperSlide key={item.id} className="!w-[200px] h-full lg:!w-[270px] lg:px-[7px] lg:box-border">
             <SildeComponent
               src={item.src}
               title={item.title}

@@ -1,6 +1,9 @@
 import Image from "next/image";
 import FooterList from "./FooterList";
 import { footerListData } from "@/utils/FooterListData";
+import { v4 as uuidv4 } from "uuid";
+
+
 
 
 function Footer() {
@@ -20,9 +23,9 @@ function Footer() {
       </div>
       <div className=" py-2.5 block md:flex w-full md:justify-evenly md:row-start-1 md:row-end-3 md:col-span-3">
         {footerListData.map((items) => (
-          <FooterList key={items.id} id={items.id} name={items.name} item={items.item} />
+          <FooterList key={items.id}  name={items.name} item={items.item} />
         ))}
-      </div>
+      </div> 
       <div
         className="bg-white rounded-2xl flex justify-between items-center p-4 mb-5 
       md:bg-[#fafafa] md:justify-center md:gap-x-4"

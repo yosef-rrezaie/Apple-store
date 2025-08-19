@@ -1,30 +1,36 @@
 const allProducts = [
   {
+    id: 1,
     src: "pc-laptop",
     title: "مک بوک ایر 13.6 اینچ M2 ظرفیت 8/256 گیگ مدل 2022",
     price: 75000000,
   },
   {
+    id: 2,
     src: "ipad",
     title: "آیپد پرو 11 اینچ M2 ظرفیت 128 گیگ",
     price: 45000000,
   },
   {
+    id: 3,
     src: "nike-watch",
     title: "اپل واچ اولترا تیتانیومی با بند لوپ اورنج آلپاین",
     price: 50000000,
   },
   {
+    id:4 , 
     src: "airpadmax",
     title: "ایرپاد مکس هدفون بلوتوث اپل",
     price: 27800000,
   },
   {
+    id:5 , 
     src: "airpadmax",
     title: "ایرپاد مکس هدفون بلوتوث اپل",
     price: 27800000,
   },
   {
+    id:6 ,
     src: "airpadmax",
     title: "ایرپاد مکس هدفون بلوتوث اپل",
     price: 27800000,
@@ -49,4 +55,4 @@ const watchProducts = [
   },
 ];
 
-export { allProducts , watchProducts };
+export { allProducts, watchProducts };

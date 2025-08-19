@@ -1,6 +1,8 @@
 "use client";
 import { useRef } from "react";
 import Image from "next/image";
+import Link from "next/link";
+
 
 function FooterList({ name, item }) {
   const ref1 = useRef(null);
@@ -35,7 +37,9 @@ function FooterList({ name, item }) {
       >
         <ul>
           {item.map((items) => (
-            <li key={items}>{items}</li>
+            <Link href={items.link}>
+              <li key={items.id}>{items.title}</li>
+            </Link>
           ))}
         </ul>
       </div>
