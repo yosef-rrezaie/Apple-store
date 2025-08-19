@@ -3,7 +3,9 @@ import { sp } from "@/utils/replaceNumber";
 import Image from "next/image";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useState, useEffect } from "react";
+import toast, { Toaster } from "react-hot-toast";
 import { FaStore } from "react-icons/fa";
+import { MdFindInPage } from "react-icons/md";
 
 const sortOption = [
   "همه",
@@ -16,7 +18,7 @@ const sortOption = [
   "اپل تی وی",
 ];
 
-function MainProducts() {
+function MainProducts({ emailUser }) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [priceSort, setPriceSort] = useState(searchParams.get("sort") || 101);
@@ -41,6 +43,7 @@ function MainProducts() {
       .then((data) => setProducts(data))
       .catch((err) => console.error(err));
   }, [priceSort, categorySort, search]);
+  console.log(products);
 
   const categoryHandler = (category) => {
     setCategorySort(category);
@@ -57,8 +60,29 @@ function MainProducts() {
     router.replace(`?${params.toString()}`);
   };
 
+  async function basketHandler(email, id, number) {
+    if (emailUser === "NotFound")
+      return toast.error("ابتدا وارد حساب خود شوید");
+    const res = await fetch("/api/basket", {
+      method: "POST",
+      body: JSON.stringify({
+        email,
+        productId: id,
+        number,
+      }),
+      headers: { "Content-Type": "application/json" },
+    });
+    const result = await res.json();
+    console.log("result : ", result);
+    if (result.status === "success") {
+      toast.success(result.message);
+    } else {
+      toast.error("مشکل در سرور");
+    }
+  }
+
   return (
-    <div className="mt-6 px-6 ">
+    <div className="mt-6 px-6">
       <div className="mt-4 space-y-4">
         <div className="flex items-center justify-between">
           <label
@@ -98,64 +122,77 @@ function MainProducts() {
         </div>
       </div>
 
-      <div className="grid  grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-8">
-        {products.map((p) => (
-          <div
-            key={p._id}
-            className="bg-[#F6F6F6] rounded-[10px] p-4 shadow-sm hover:shadow-md transition"
-          >
-            <div className="flex justify-center">
-              <Image
-                src={p.image || "/images/pc-laptop.png"}
-                width={300}
-                height={200}
-                className="w-full max-h-40 object-contain"
-                alt={p.title}
-              />
-            </div>
-            <p className="text-center font-semibold mt-2">{p.title}</p>
-            <div className="mt-2 border-t border-gray-200"></div>
-            <div className=" flex flex-col items-center mb-5 md:mb-8 mt-4 justify-center">
-              {p.discount === 0 ? (
-                <p className="text-red-600 text-xl font-bold">
-                  {sp(p.price)} تومان
-                </p>
-              ) : (
-                <p className="text-red-600 text-xl font-bold">
-                  {sp(p.price - (p.discount / 100) * p.price)} تومان
-                </p>
-              )}
-              <div className="flex items-center gap-2 mt-1">
-                {p.discount === 0 ? (
-                  <span className="invisible">٪0 تخفیف</span>
-                ) : (
-                  <span className="text-sm text-white bg-red-500 px-2 py-0.5 rounded-full">
-                    ٪{sp(p.discount)} تخفیف
-                  </span>
-                )}
-                <p
-                  className={`line-through text-gray-400 text-sm ${
-                    p.discount === 0 && "hidden"
-                  }`}
-                >
-                  {sp(p.price)} تومان
-                </p>
+      <div className={`grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 mt-8 ${products.length ? "grid" : "block"}`}>
+        {products.length ? (
+          products.map((p) => (
+            <div
+              key={p._id}
+              className="bg-[#F6F6F6] rounded-[10px] p-4 shadow-sm hover:shadow-md transition"
+            >
+              <div className="flex justify-center">
+                <Image
+                  src={p.imageUrl || "/images/pc-laptop.png"}
+                  width={300}
+                  height={200}
+                  className="w-full max-h-40 object-contain"
+                  alt={p.title}
+                />
               </div>
-            </div>
-            {/* <div className="mt-4 flex items-center">
+              <p className="text-center font-semibold mt-2">{p.title}</p>
+              <div className="mt-2 border-t border-gray-200"></div>
+              <div className=" flex flex-col items-center mb-5 md:mb-8 mt-4 justify-center">
+                {p.discount === 0 ? (
+                  <p className="text-red-600 text-xl font-bold">
+                    {sp(p.price)} تومان
+                  </p>
+                ) : (
+                  <p className="text-red-600 text-xl font-bold">
+                    {sp(p.price - (p.discount / 100) * p.price)} تومان
+                  </p>
+                )}
+                <div className="flex items-center gap-2 mt-1">
+                  {p.discount === 0 ? (
+                    <span className="invisible">٪0 تخفیف</span>
+                  ) : (
+                    <span className="text-sm text-white bg-red-500 px-2 py-0.5 rounded-full">
+                      ٪{sp(p.discount)} تخفیف
+                    </span>
+                  )}
+                  <p
+                    className={`line-through text-gray-400 text-sm ${
+                      p.discount === 0 && "hidden"
+                    }`}
+                  >
+                    {sp(p.price)} تومان
+                  </p>
+                </div>
+              </div>
+              {/* <div className="mt-4 flex items-center">
               <FaStore className="text-red-500 text-xl" />
               <p className="mr-2 font-medium text-gray-700">
                 {p.storeName || "نام فروشگاه"}
               </p>
             </div> */}
-            <div className="mt-4 flex justify-end">
-              <button className="bg-orange-500 text-white px-3 py-1 rounded-md text-sm hover:bg-orange-600 transition">
-                افزودن به سبد خرید
-              </button>
+              <div className="mt-4 flex justify-end">
+                <button
+                  className="bg-orange-500 text-white px-3 py-1 rounded-md text-sm hover:bg-orange-600 transition"
+                  onClick={() => basketHandler(emailUser, p._id, 1)}
+                >
+                  افزودن به سبد خرید
+                </button>
+              </div>
             </div>
-          </div>
-        ))}
+          ))
+        ) : (
+            <div className="h-full mt-30 w-full  flex flex-col gap-5 items-center justify-center">
+              <p className="text-[18px] font-semibold md:text-[20px]">
+                گشتم نبود ، نگرد نیست !
+              </p>
+              <MdFindInPage className="text-primary text-9xl md:text-[145px]" />
+            </div>
+        )}
       </div>
+      <Toaster />
     </div>
   );
 }

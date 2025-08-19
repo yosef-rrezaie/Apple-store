@@ -10,7 +10,7 @@ import moment from "jalali-moment";
 
 function ProductPage({ information , emailUser }) {
   const [desc, setDesc] = useState("");
-  const filteredComments = information.comments.filter(
+  const filteredComments = information.comments.filter( 
     (item) => item.published === true
   );
   console.log(emailUser)
