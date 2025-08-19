@@ -7,14 +7,14 @@ import "swiper/css/autoplay";
 import "swiper/css/free-mode";
 import { Pagination, Autoplay, FreeMode } from "swiper/modules";
 import SildeComponent from "./SildeComponent";
-import { allProducts , watchProducts } from "@/utils/Slides";
+import { allProducts, watchProducts } from "@/utils/Slides";
 
-export default function BestSellSlider({ title , desc }) {
+export default function BestSellSlider({ title, desc }) {
   return (
     <div
-      className={`w-full h-[270px] ${
+      className={`w-full h-[300px] ${
         title === "apple-watch" ? "mt-0" : "mt-10"
-      } mb-[20px] items-stretch lg:h-[345px] `}
+      } mb-[20px] items-stretch lg:h-[380px] `}
     >
       <Swiper
         slidesPerView="auto"
@@ -34,24 +34,34 @@ export default function BestSellSlider({ title , desc }) {
           clickable: true,
         }}
       >
-        {desc === "allProducts" && allProducts.map((item) => (
-          <SwiperSlide key={item.id} className="!w-[200px] h-full lg:!w-[270px] lg:px-[7px] lg:box-border">
-            <SildeComponent
-              src={item.src}
-              title={item.title}
-              price={item.price}
-            />
-          </SwiperSlide>
-        ))}
-        {desc === "watchProducts" && watchProducts.map((item) => (
-          <SwiperSlide  key={item.title} className="!w-[200px] h-full lg:!w-[270px] lg:px-[7px] lg:box-border">
-            <SildeComponent
-              src={item.src}
-              title={item.title}
-              price={item.price}
-            />
-          </SwiperSlide>
-        ))}
+        {desc === "allProducts" &&
+          allProducts.map((item) => (
+            <SwiperSlide
+              key={item.id}
+              className="!w-[200px] h-full lg:!w-[270px] lg:px-[7px] lg:box-border"
+            >
+              <SildeComponent
+                src={item.src}
+                title={item.title}
+                price={item.price}
+                discount={item.discount || 0}
+              />
+            </SwiperSlide>
+          ))}
+        {desc === "watchProducts" &&
+          watchProducts.map((item) => (
+            <SwiperSlide
+              key={item.title}
+              className="!w-[200px] h-full lg:!w-[270px] lg:px-[7px] lg:box-border"
+            >
+              <SildeComponent
+                src={item.src}
+                title={item.title}
+                price={item.price}
+                discount={item.discount || 0}
+              />
+            </SwiperSlide>
+          ))}
       </Swiper>
       <div className="custom-pagination hidden sm:flex justify-center mt-15 gap-x-2"></div>
       <style jsx global>{`

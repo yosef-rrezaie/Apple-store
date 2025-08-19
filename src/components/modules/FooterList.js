@@ -37,8 +37,8 @@ function FooterList({ name, item }) {
       >
         <ul>
           {item.map((items) => (
-            <Link href={items.link}>
-              <li key={items.id}>{items.title}</li>
+            <Link key={items.id} href={items.link}>
+              <li>{items.title}</li>
             </Link>
           ))}
         </ul>

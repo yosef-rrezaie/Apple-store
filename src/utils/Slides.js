@@ -1,9 +1,12 @@
+import { disconnect } from "mongoose";
+
 const allProducts = [
   {
     id: 1,
     src: "pc-laptop",
     title: "مک بوک ایر 13.6 اینچ M2 ظرفیت 8/256 گیگ مدل 2022",
     price: 75000000,
+    discount : 5
   },
   {
     id: 2,
@@ -16,6 +19,7 @@ const allProducts = [
     src: "nike-watch",
     title: "اپل واچ اولترا تیتانیومی با بند لوپ اورنج آلپاین",
     price: 50000000,
+    discount : 13
   },
   {
     id:4 , 
@@ -31,7 +35,7 @@ const allProducts = [
   },
   {
     id:6 ,
-    src: "airpadmax",
+    src: "airpadmax", 
     title: "ایرپاد مکس هدفون بلوتوث اپل",
     price: 27800000,
   },
@@ -47,6 +51,7 @@ const watchProducts = [
     src: "nike-watch",
     title: "اپل واچ اولترا تیتانیومی با بند لوپ اورنج آلپاین",
     price: 27800000,
+    discount : 12.5
   },
   {
     src: "apple-watch",

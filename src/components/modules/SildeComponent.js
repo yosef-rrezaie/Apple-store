@@ -1,9 +1,11 @@
 import Image from "next/image";
 import { sp } from "@/utils/replaceNumber";
 
-export default function SildeComponent({ src, title, price }) {
+export default function SildeComponent({ src, title, price, discount }) {
+  const finalPrice = discount ? Math.floor(price - (price * discount) / 100) : price;
+
   return (
-    <div className="rounded-xl shadow-sm p-3 bg-[#F6F6F6] h-full ">
+    <div className="rounded-xl shadow-sm p-3 bg-[#F6F6F6] h-[500px]">
       <div className="flex justify-center">
         <Image
           src={`/images/${src}.png`}
@@ -13,17 +15,51 @@ export default function SildeComponent({ src, title, price }) {
           className="w-[162px] h-[100px] object-contain lg:w-[266px] lg:h-[165px]"
         />
       </div>
+
       <p className="text-sm text-center mt-4 font-semibold line-clamp-2 h-[48px] lg:text-[18px]">
         {title}
       </p>
+
       <div className="lg:flex lg:justify-center lg:items-center">
-        <div className="border-solid border-[1px] border-[#E4E4E4] my-2 w-[182px]"></div>
+        <div className="border border-[#E4E4E4] my-2 w-[182px]"></div>
       </div>
-      <p className="text-center font-normal text-gray-800 text-base mt-1 lg:text-[20px] ">
-        {sp(price)}
-      </p>
+
+      <div className="text-center font-normal text-gray-800 text-base mt-1 lg:text-[20px]">
+        {!discount ? (
+          <div className="flex flex-col items-center gap-1">
+            <p className="text-gray-400  text-xs lg:text-[16px]">
+              {sp(price)} تومان
+            </p>
+            <div className="flex items-center gap-2 invisible">
+              <p className="text-red-600 font-bold">{sp(finalPrice)} تومان</p>
+              <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
+                %{discount}
+              </span>
+            </div>
+          </div>
+        ) : (
+          <div className="flex flex-col items-center gap-1">
+            <p className="text-gray-400 line-through text-sm lg:text-[16px]">
+              {sp(price)} تومان
+            </p>
+            <div className="flex items-center gap-2">
+              <p className="text-red-600 font-bold">{sp(finalPrice)} تومان</p>
+              <span className="bg-red-500 text-white text-xs px-2 py-0.5 rounded-full">
+                %{sp(discount)}
+              </span>
+            </div>
+          </div>
+        )}
+      </div>
+
       <div className="flex justify-end mt-4">
-        <Image src="/svg/plus.svg" width="24" height="24" alt="ipad" className="lg:w-[27px] lg:h-[27px]" />
+        <Image
+          src="/svg/plus.svg"
+          width="24"
+          height="24"
+          alt="add"
+          className="lg:w-[27px] lg:h-[27px] cursor-pointer"
+        />
       </div>
     </div>
   );
