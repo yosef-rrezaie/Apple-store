@@ -22,7 +22,7 @@ function SignUpIn({ title, type }) {
     } else {
       setSituation(() => "signup");
     }
-  }, []);
+  }, [pathname]);
   console.log(pathname);
   async function submitHandler(e) {
     e.preventDefault();

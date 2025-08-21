@@ -46,7 +46,7 @@ function MainProducts({ emailUser }) {
         setLoading(false);
       })
       .catch((err) => console.error(err));
-  }, [priceSort, categorySort, search]);
+  }, [priceSort, categorySort, search , searchParams]);
   console.log(products);
 
   const categoryHandler = (category) => {
