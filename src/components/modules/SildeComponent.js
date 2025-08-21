@@ -1,8 +1,41 @@
+"use client";
 import Image from "next/image";
 import { sp } from "@/utils/replaceNumber";
+import { useRouter } from "next/navigation";
+import { useSession } from "next-auth/react";
+import toast, { Toaster } from "react-hot-toast";
 
-export default function SildeComponent({ src, title, price, discount }) {
-  const finalPrice = discount ? Math.floor(price - (price * discount) / 100) : price;
+export default function SildeComponent({ src, title, price, discount, id }) {
+  const session = useSession();
+  console.log("session:", session);
+  const finalPrice = discount
+    ? Math.floor(price - (price * discount) / 100)
+    : price;
+  const router = useRouter();
+  function clickHandler(id) {
+    router.push(`/products/${id}`);
+  }
+
+  async function basketHandler( id, number) {
+    if (session.status === "unauthenticated")
+      return toast.error("ابتدا وارد حساب خود شوید");
+    const res = await fetch("/api/basket", {
+      method: "POST",
+      body: JSON.stringify({
+        email:session.data.user.email ,
+        productId: id,
+        number,
+      }),
+      headers: { "Content-Type": "application/json" },
+    });
+    const result = await res.json();
+    console.log("result : ", result);
+    if (result.status === "success") {
+      toast.success(result.message);
+    } else {
+      toast.error("مشکل در سرور");
+    }
+  }
 
   return (
     <div className="rounded-xl shadow-sm p-3 bg-[#F6F6F6] h-[500px]">
@@ -13,6 +46,7 @@ export default function SildeComponent({ src, title, price, discount }) {
           height="100"
           alt={title}
           className="w-[162px] h-[100px] object-contain lg:w-[266px] lg:h-[165px]"
+          onClick={() => clickHandler(id)}
         />
       </div>
 
@@ -59,6 +93,7 @@ export default function SildeComponent({ src, title, price, discount }) {
           height="24"
           alt="add"
           className="lg:w-[27px] lg:h-[27px] cursor-pointer"
+          onClick={() => basketHandler( id, 1)}
         />
       </div>
     </div>
