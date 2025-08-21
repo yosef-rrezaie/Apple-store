@@ -8,25 +8,37 @@ import Categories from "@/components/modules/Categories";
 import CountDown from "@/components/modules/CountDown";
 import Facilities from "@/components/modules/Facilities";
 import Footer from "@/components/modules/Footer";
+import { connectDB } from "@/utils/DB/connectDB";
+import Ad from "@/utils/DB/modelAd";
 
-function Home() {
-  return (
-    <>
-      <div className="bg-primary h-13 md:h-[70px] md:text-base flex justify-center items-center text-[13px] font-semibold text-white">
-        <p>تا ۷۰٪ تخفیف برای لوازم جانبی اورجینال آیفون</p> 
-      </div>
-      <Header />
-      <Categories />
-      <Banner />
-      <CountDown />
-      <AdvertiseBanner />
-      <BestSellProducts />
-      <AdBanner />
-      <AppleWatch />
-      <Facilities />
-      <Footer />
-    </>
-  );
+async function Home() {
+  try {
+    await connectDB();
+    const ad = await Ad.find({ published: true });
+    const appleWatches = await Ad.find({
+      category: "اپل واچ",
+      published: true,
+    });
+    return (
+      <>
+        <div className="bg-primary h-13 md:h-[70px] md:text-base flex justify-center items-center text-[13px] font-semibold text-white">
+          <p>تا ۷۰٪ تخفیف برای لوازم جانبی اورجینال آیفون</p>
+        </div>
+        <Header />
+        <Categories />
+        <Banner />
+        <CountDown />
+        <AdvertiseBanner />
+        <BestSellProducts data={JSON.parse(JSON.stringify(ad))} />
+        <AdBanner />
+        <AppleWatch data={JSON.parse(JSON.stringify(appleWatches))} />
+        <Facilities />
+        <Footer />
+      </>
+    );
+  } catch (err) {
+    console.log(err);
+  }
 }
 
 export default Home;

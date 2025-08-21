@@ -8,8 +8,14 @@ import "swiper/css/free-mode";
 import { Pagination, Autoplay, FreeMode } from "swiper/modules";
 import SildeComponent from "./SildeComponent";
 import { allProducts, watchProducts } from "@/utils/Slides";
+import { useRouter } from "next/navigation";
+import Link from "next/link";
 
-export default function BestSellSlider({ title, desc }) {
+export default function BestSellSlider({ title, desc, data }) {
+  const router = useRouter();
+  function clickHandler(id) {
+    router.push(`/products/${id}`);
+  }
   return (
     <div
       className={`w-full h-[300px] ${
@@ -35,13 +41,14 @@ export default function BestSellSlider({ title, desc }) {
         }}
       >
         {desc === "allProducts" &&
-          allProducts.map((item) => (
+          data.map((item) => (
             <SwiperSlide
-              key={item.id}
+              key={item._id}
               className="!w-[200px] h-full lg:!w-[270px] lg:px-[7px] lg:box-border"
+              onClick={() => clickHandler(item._id)}
             >
               <SildeComponent
-                src={item.src}
+                src={item.imageUrl}
                 title={item.title}
                 price={item.price}
                 discount={item.discount || 0}
@@ -49,13 +56,14 @@ export default function BestSellSlider({ title, desc }) {
             </SwiperSlide>
           ))}
         {desc === "watchProducts" &&
-          watchProducts.map((item) => (
+          data.map((item) => (
             <SwiperSlide
-              key={item.title}
+              key={item.id}
               className="!w-[200px] h-full lg:!w-[270px] lg:px-[7px] lg:box-border"
+              onClick={() => clickHandler(item._id)}
             >
               <SildeComponent
-                src={item.src}
+                src={item.imageUrl}
                 title={item.title}
                 price={item.price}
                 discount={item.discount || 0}

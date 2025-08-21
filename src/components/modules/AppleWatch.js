@@ -1,7 +1,7 @@
 import Image from "next/image";
 import BestSellSlider from "./BestSellSlider";
 
-function AppleWatch() {
+function AppleWatch({data}) {
   return (
     <div className="my-10 px-6 w-full">
       <p className="font-semibold tracking-wide lg:text-[30px]">انواع اپل واچ</p>
@@ -27,11 +27,11 @@ function AppleWatch() {
               />
               <span className="text-[14px] font-semibold tracking-wide text-primary lg:text-[25px]">
                 مشاهده همه
-              </span>
+              </span> 
             </button>
           </div>
         </div>
-        <BestSellSlider title="apple-watch" desc="watchProducts" />
+        <BestSellSlider  title="apple-watch" desc="watchProducts" data={data} />
       </div>
     </div>
   );

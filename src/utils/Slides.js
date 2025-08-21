@@ -29,13 +29,13 @@ const allProducts = [
   },
   {
     id:5 , 
-    src: "airpadmax",
+    src: "iphone16",
     title: "ایرپاد مکس هدفون بلوتوث اپل",
     price: 27800000,
   },
   {
     id:6 ,
-    src: "airpadmax", 
+    src: "iphone14", 
     title: "ایرپاد مکس هدفون بلوتوث اپل",
     price: 27800000,
   },

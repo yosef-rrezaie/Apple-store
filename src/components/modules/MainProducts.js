@@ -85,6 +85,10 @@ function MainProducts({ emailUser }) {
     }
   }
 
+  function clickHandler(id) {
+    router.push(`/products/${id}`)
+  }
+
   return (
     <div className="mt-6 px-6">
       <div className="mt-4 space-y-4">
@@ -156,6 +160,7 @@ function MainProducts({ emailUser }) {
             <div
               key={p._id}
               className="bg-[#F6F6F6] rounded-[10px] p-4 shadow-sm hover:shadow-md transition"
+              onClick={()=>clickHandler(p._id)}
             >
               <div className="flex justify-center">
                 <Image

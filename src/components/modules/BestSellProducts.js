@@ -1,7 +1,7 @@
 import Image from "next/image";
 import BestSellSlider from "./BestSellSlider";
 
-function BestSellProducts() {
+function BestSellProducts({data}) {
   return (
     <div className="px-6">
       <div className="flex justify-between">
@@ -17,7 +17,7 @@ function BestSellProducts() {
           />
         </div>
       </div>
-      <BestSellSlider title="sellProducts" desc="allProducts"/>
+      <BestSellSlider title="sellProducts" desc="allProducts" data = {data}/>
     </div>
   );
 }

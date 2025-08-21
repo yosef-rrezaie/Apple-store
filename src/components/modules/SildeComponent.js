@@ -8,10 +8,10 @@ export default function SildeComponent({ src, title, price, discount }) {
     <div className="rounded-xl shadow-sm p-3 bg-[#F6F6F6] h-[500px]">
       <div className="flex justify-center">
         <Image
-          src={`/images/${src}.png`}
+          src={src}
           width="162"
           height="100"
-          alt={src}
+          alt={title}
           className="w-[162px] h-[100px] object-contain lg:w-[266px] lg:h-[165px]"
         />
       </div>
