@@ -5,7 +5,7 @@ import { FaShopify } from "react-icons/fa";
 export default function BoughtProducts({ data }) {
   return (
     <div
-      className={`gap-6 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 ${
+      className={`gap-6 grid-cols-1  w-full  lg:grid-cols-2 xl:grid-cols-3 ${
         data.boughtBasket.length ? "grid" : "block"
       }`}
     >
