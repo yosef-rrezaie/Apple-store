@@ -46,7 +46,7 @@ function MainProducts({ emailUser }) {
         setLoading(false);
       })
       .catch((err) => console.error(err));
-  }, [priceSort, categorySort, search , searchParams]);
+  }, [priceSort, categorySort, search, searchParams]);
   console.log(products);
 
   const categoryHandler = (category) => {
@@ -86,7 +86,7 @@ function MainProducts({ emailUser }) {
   }
 
   function clickHandler(id) {
-    router.push(`/products/${id}`)
+    router.push(`/products/${id}`);
   }
 
   return (
@@ -160,7 +160,6 @@ function MainProducts({ emailUser }) {
             <div
               key={p._id}
               className="bg-[#F6F6F6] rounded-[10px] p-4 shadow-sm hover:shadow-md transition"
-              onClick={()=>clickHandler(p._id)}
             >
               <div className="flex justify-center">
                 <Image
@@ -169,6 +168,7 @@ function MainProducts({ emailUser }) {
                   height={200}
                   className="w-full max-h-40 object-contain"
                   alt={p.title}
+                  onClick={() => clickHandler(p._id)}
                 />
               </div>
               <p className="text-center font-semibold mt-2">{p.title}</p>
