@@ -80,6 +80,7 @@ function MainProducts({ emailUser }) {
     console.log("result : ", result);
     if (result.status === "success") {
       toast.success(result.message);
+      router.refresh()
     } else {
       toast.error("مشکل در سرور");
     }

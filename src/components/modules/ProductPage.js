@@ -7,41 +7,42 @@ import { sp } from "@/utils/replaceNumber";
 import { useState } from "react";
 import toast, { Toaster } from "react-hot-toast";
 import moment from "jalali-moment";
+import { useRouter } from "next/navigation";
 
-function ProductPage({ information , emailUser }) {
+function ProductPage({ information, emailUser }) {
+  const router = useRouter()
   const [desc, setDesc] = useState("");
-  const filteredComments = information.comments.filter( 
+  const filteredComments = information.comments.filter(
     (item) => item.published === true
   );
-  console.log(emailUser)
+  console.log(emailUser);
 
-  async function basketHandler(email, id, number ) {
-    if (emailUser==="NotFound")
+  async function basketHandler(email, id, number) {
+    if (emailUser === "NotFound")
       return toast.error("ابتدا وارد حساب خود شوید");
     const res = await fetch("/api/basket", {
       method: "POST",
       body: JSON.stringify({
         email,
-        productId:id,
-        number
+        productId: id,
+        number,
       }),
       headers: { "Content-Type": "application/json" },
     });
     const result = await res.json();
-    console.log("result : " , result);
+    console.log("result : ", result);
     if (result.status === "success") {
       toast.success(result.message);
+      router.refresh();
     } else {
       toast.error("مشکل در سرور");
     }
   }
 
   async function clickHandler(id) {
-
     if (emailUser === "NotFound")
       return toast.error("ابتدا وارد حساب خود شوید");
-    if (desc === "")
-      return toast.error("لطفا فیلد را به درستی پر کنید");
+    if (desc === "") return toast.error("لطفا فیلد را به درستی پر کنید");
     const res = await fetch("/api/comments", {
       method: "POST",
       body: JSON.stringify({
@@ -141,9 +142,7 @@ function ProductPage({ information , emailUser }) {
           <button
             className="bg-[#FF510C] hover:bg-orange-600 text-white px-5 py-2 rounded-xl flex items-center justify-center 
         transition-all w-full md:w-max"
-            onClick={() =>
-              basketHandler(emailUser, information._id, 1)
-            }
+            onClick={() => basketHandler(emailUser, information._id, 1)}
           >
             <LuShoppingCart className="text-white text-lg" />
             <span className="mr-2 font-medium">افزودن به سبد خرید</span>

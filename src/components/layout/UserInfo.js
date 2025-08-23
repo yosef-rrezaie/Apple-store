@@ -6,7 +6,7 @@ import { getServerSession } from "next-auth";
 import NoPannel from "./NoPannel";
 import Pannel from "./Pannel";
 
-async function UserInfo() {
+async function UserInfo({basketNumber}) {
   const session = await getServerSession(authOptions);
   if (!session) {
     return <NoPannel />;
@@ -18,7 +18,7 @@ async function UserInfo() {
       await connectDB();
       const authUser = await User.findOne({ email });
       console.log(authUser.role);
-      return <Pannel role={authUser.role}/>
+      return <Pannel role={authUser.role} basketNumber={basketNumber}/>
 
     }catch(err) {
       console.log(err)

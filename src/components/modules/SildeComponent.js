@@ -19,7 +19,7 @@ export default function SildeComponent({ src, title, price, discount, id }) {
   async function basketHandler( id, number) {
     if (session.status === "unauthenticated")
       return toast.error("ابتدا وارد حساب خود شوید");
-    const res = await fetch("/api/basket", {
+    const res = await fetch("/api/basket", {  
       method: "POST",
       body: JSON.stringify({
         email:session.data.user.email ,
@@ -32,6 +32,7 @@ export default function SildeComponent({ src, title, price, discount, id }) {
     console.log("result : ", result);
     if (result.status === "success") {
       toast.success(result.message);
+      router.refresh()
     } else {
       toast.error("مشکل در سرور");
     }
