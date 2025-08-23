@@ -93,12 +93,12 @@ function BasketPage({ informations, email }) {
             key={information._id}
             className="flex flex-col h-full border bg-white shadow-md border-[#eb8d68] rounded-[13px] px-8 py-6"
           >
-            <div className="flex justify-center mb-6">
+            <div className="flex justify-center items-center mb-6 h-48">
               <Image
                 src={information.imageUrl}
-                width="1000"
-                height="1000"
-                className="rounded-xl shadow-md w-50 md:w-60"
+                width={200}
+                height={200}
+                className="rounded-xl shadow-md object-contain max-h-full"
                 alt={information.title}
               />
             </div>
