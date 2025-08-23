@@ -7,7 +7,7 @@ import { RiAdminLine } from "react-icons/ri";
 function Pannel({ role , basketNumber }) {
   return (
     <div className="flex gap-3 items-center">
-      <Link href="basket">
+      <Link href="/basket">
         <div className="relative">
           <Image
             src="/svg/shopping-cart.svg"
