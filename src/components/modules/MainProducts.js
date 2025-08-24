@@ -91,7 +91,7 @@ function MainProducts({ emailUser }) {
   }
 
   return (
-    <div className="mt-6 px-6">
+    <div className="mt-6 px-6 mb-6">
       <div className="mt-4 space-y-4">
         <div className="flex items-center justify-between">
           <label
